@@ -17,10 +17,11 @@ class FuzzyRuleset
       @scaled_sets[index] = rule.fire(value)
     end
 
-    puts @scaled_sets.join(', ')
+    #puts @scaled_sets.join(', ')
     x_centroids = @scaled_sets.map { |set| set.centroid[0] }
-    outputs = @scaled_sets.map { |set| set.centroid[0] * set.height}
+    outputs = @scaled_sets.map { |set| set.centroid[0] * set.height }
+    heights = @scaled_sets.map { |set| set.height }
 
-    outputs.inject{|sum,x| sum + x }
+    outputs.inject{|sum,x| sum + x } / heights.inject{|sum,x| sum + x }
   end
 end
