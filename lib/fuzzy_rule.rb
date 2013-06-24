@@ -5,4 +5,9 @@ class FuzzyRule
     @antecedent = antecedent
     @consequent = consequent
   end
+
+  def calculate(value)
+    input_dom = antecedent.dom(value)
+    puts input_dom
+  end
 end

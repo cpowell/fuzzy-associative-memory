@@ -1,5 +1,5 @@
 class FuzzyRuleset
-  attr_reader :rules
+  attr_accessor :rules
   attr_reader :name
 
   def initialize(name)
@@ -9,5 +9,11 @@ class FuzzyRuleset
 
   def add_rule(fuzzy_rule)
     @rules << fuzzy_rule
+  end
+
+  def calculate(value)
+    @rules.each do |rule|
+      rule.calculate(value)
+    end
   end
 end
