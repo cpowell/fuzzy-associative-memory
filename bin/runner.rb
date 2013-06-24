@@ -12,11 +12,11 @@ require 'fuzzy_ruleset'
 
 # Our input expressed as a number of fuzzy sets, with each set
 # representing a natural-language description
-cold       = LeftShoulder.new(-1, 0, 50)
+cold       = Triangle.new(-50, 0, 50)
 cool       = Triangle.new(0, 55, 65)
 just_right = Triangle.new(60, 65, 70)
 warm       = Triangle.new(65, 75, 85)
-hot        = RightShoulder.new(80, 90, 100)
+hot        = Triangle.new(80, 90, 100)
 
 # Our 'temperature input' variable, which is the assemblage of
 # all our fuzzy input sets
@@ -25,11 +25,11 @@ temperature_in.fuzzy_sets = [cold, cool, just_right, warm, hot]
 
 # Our output expressed as a number of fuzzy sets, with each set
 # representing a natural-language description
-stop   = LeftShoulder.new(-1, 0, 30)
+stop   = Triangle.new(-30, 0, 30)
 slow   = Triangle.new(10, 30, 50)
 medium = Triangle.new(40, 50, 60)
 fast   = Triangle.new(50, 70, 90)
-blast  = RightShoulder.new(70, 100, 110)
+blast  = Triangle.new(70, 100, 130)
 
 # Our 'resultant fan speed' variable, which is the assemblage of
 # all our fuzzy output sets
@@ -46,4 +46,8 @@ rule_5 = FuzzyRule.new(temperature_in[4], fan_speed[4])
 
 system = FuzzyRuleset.new("HVAC control")
 system.rules = [rule_1, rule_2, rule_3, rule_4, rule_5]
-system.calculate(64)
+puts system.calculate(63)
+
+# (60..70).each do |n|
+#   puts system.calculate(n)
+# end

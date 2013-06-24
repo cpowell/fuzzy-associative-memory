@@ -12,7 +12,11 @@ class FuzzySet
     raise "Subclass must define!"
   end
 
-  def shrink_to(ratio)
+  def scale(ratio)
+    raise "Subclass must define!"
+  end
+
+  def centroid
     raise "Subclass must define!"
   end
 end

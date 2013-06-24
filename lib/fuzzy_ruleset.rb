@@ -3,9 +3,9 @@ class FuzzyRuleset
   attr_reader :name
 
   def initialize(name)
-    @name  = name
-    @rules = []
-    @doms  = []
+    @name        = name
+    @rules       = []
+    @scaled_sets = []
   end
 
   def add_rule(fuzzy_rule)
@@ -14,9 +14,13 @@ class FuzzyRuleset
 
   def calculate(value)
     @rules.each_with_index do |rule, index|
-      @doms[index] = rule.fire(value)
+      @scaled_sets[index] = rule.fire(value)
     end
 
-    puts @doms.join(', ')
+    puts @scaled_sets.join(', ')
+    x_centroids = @scaled_sets.map { |set| set.centroid[0] }
+    outputs = @scaled_sets.map { |set| set.centroid[0] * set.height}
+
+    outputs.inject{|sum,x| sum + x }
   end
 end

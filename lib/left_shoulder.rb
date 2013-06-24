@@ -24,4 +24,18 @@ class LeftShoulder < FuzzySet
     end
   end
 
+  def height=(new_height)
+    @height       = new_height
+    @right_subdiv = -@height / (@peak - @right)
+  end
+
+  def scale(percentage)
+    t = self.dup
+    t.height=(t.height * percentage)
+    t
+  end
+
+  def to_s
+    "LeftShoulder {#{left}/#{peak}/#{right}, height #{height}}"
+  end
 end

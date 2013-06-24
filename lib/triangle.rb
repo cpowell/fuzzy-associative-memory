@@ -27,4 +27,26 @@ class Triangle < FuzzySet
     end
   end
 
+  def centroid
+    cx = (@left + @right + @peak) / 3.0
+    cy = @height / 3.0
+    [cx, cy]
+  end
+
+  def height=(new_height)
+    @height       = new_height
+    @left_subdiv  = @height / (@peak - @left)
+    @right_subdiv = -@height / (@peak - @right)
+  end
+
+  def scale(ratio)
+    t = self.dup
+    t.height=(t.height * ratio)
+    t
+  end
+
+  def to_s
+    "Triangle {#{left}/#{peak}/#{right}, height #{height}}"
+  end
+
 end
