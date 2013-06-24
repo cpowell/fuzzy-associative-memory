@@ -11,14 +11,7 @@ class FuzzyVariable
     @fuzzy_sets << fuzzy_set
   end
 
-  def result_for(value)
-    @doms = Array.new
-    @fuzzy_sets.each do |set|
-      @doms << set.dom(value)
-    end
-
-    puts @doms.join(", ")
+  def [](n)
+    @fuzzy_sets[n]
   end
-
-
 end

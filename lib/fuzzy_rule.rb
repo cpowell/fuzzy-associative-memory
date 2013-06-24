@@ -6,8 +6,9 @@ class FuzzyRule
     @consequent = consequent
   end
 
-  def calculate(value)
+  def fire(value)
     input_dom = antecedent.dom(value)
-    puts input_dom
+
+    input_dom
   end
 end

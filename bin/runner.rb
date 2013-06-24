@@ -38,12 +38,12 @@ fan_speed.fuzzy_sets = [stop, slow, medium, fast, blast]
 
 # Natural-language marriage of the inputs to the outputs, e.g.
 # "If the temperature is cool, the motor speed should be slow."
-rule_1 = FuzzyRule.new(cold, stop)
-rule_2 = FuzzyRule.new(cool, slow)
-rule_3 = FuzzyRule.new(just_right, medium)
-rule_4 = FuzzyRule.new(warm, fast)
-rule_5 = FuzzyRule.new(hot, blast)
+rule_1 = FuzzyRule.new(temperature_in[0], fan_speed[0])
+rule_2 = FuzzyRule.new(temperature_in[1], fan_speed[1])
+rule_3 = FuzzyRule.new(temperature_in[2], fan_speed[2])
+rule_4 = FuzzyRule.new(temperature_in[3], fan_speed[3])
+rule_5 = FuzzyRule.new(temperature_in[4], fan_speed[4])
 
 system = FuzzyRuleset.new("HVAC control")
 system.rules = [rule_1, rule_2, rule_3, rule_4, rule_5]
-system.calculate(65)
+system.calculate(64)
