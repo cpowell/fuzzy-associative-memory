@@ -7,18 +7,7 @@ class FuzzyRuleset
     @rules     = []
   end
 
-  def add_rule(fuzzy_set)
-    @rules << fuzzy_set
+  def add_rule(fuzzy_rule)
+    @rules << fuzzy_rule
   end
-
-  def result_for(value)
-    @doms = Array.new
-    @rules.each do |rule|
-      @doms << rule.dom(value)
-    end
-
-    puts @doms.join(", ")
-  end
-
-
 end
