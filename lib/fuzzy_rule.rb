@@ -25,7 +25,7 @@ class FuzzyRule
   #   - ++ ->
   #
   def fire(value)
-    input_dom = antecedent.dom(value)
+    input_dom = antecedent.mu(value)
     # puts "Rule fired and got back #{input_dom}"
 
     retval = consequent.scale(input_dom)
