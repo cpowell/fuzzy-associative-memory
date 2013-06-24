@@ -1,0 +1,21 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    minitest (2.12.1)
+    multi_json (1.7.7)
+    purdytest (1.0.0)
+      minitest (~> 2.2)
+    simplecov (0.7.1)
+      multi_json (~> 1.0)
+      simplecov-html (~> 0.7.1)
+    simplecov-html (0.7.1)
+    watchr (0.7)
+
+PLATFORMS
+  java
+
+DEPENDENCIES
+  minitest
+  purdytest
+  simplecov
+  watchr
