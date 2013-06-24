@@ -2,32 +2,25 @@ require 'lib/fuzzy_set'
 
 class LeftShoulder < FuzzySet
 
-  attr_accessor :peak, :left_offset, :right_offset
+  attr_reader :left, :peak, :right
 
-  def initialize(peak, left_offset, right_offset)
-    if left_offset < 0 || right_offset < 0
-      raise ArgumentError, "offsets cannot be negative"
-    end
+  def initialize(left, peak, right)
+    # TODO validations
+
     @peak         = peak
-    @left_offset  = left_offset
-    @right_offset = right_offset
+    @left         = left
+    @right        = right
+    @right_subdiv = -1.0 / (@peak - @right)
   end
 
-  def calculate_dom(value)
-    if @right_offset==0 && @left_offset==0
-      return 1.0
-    end
-
-    if value >= @peak && value <= (@peak + @right_offset)
-      subdiv = 1.0 / -@right_offset
-      return subdiv * (value - @peak) + 1.0
-    end
-
+  def dom(value)
     if value < @peak
-      return 1.0
+      1.0
+    elsif value < @right
+      (@right - value) * @right_subdiv
+    else
+      0.0
     end
-
-    return 0.0
   end
 
 end
