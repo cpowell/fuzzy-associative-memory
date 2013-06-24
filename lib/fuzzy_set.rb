@@ -1,14 +1,16 @@
 class FuzzySet
-  # Return the Degree Of Membership in this set for the given value.
+
+  # The DoM is the 'degree of membership'. Also known as the 'degree of fit',
+  # this computed value informs HOW MUCH this set activates or fires for the
+  # provided input value. A DoM of zero means that this set fits the input not
+  # at all; a DoM of 1.0 means that this set fires / fits completely.
   #
   # * *Args*    :
-  #   - +value+ -> the value in question
+  #   - +value+ -> the input value in question
   # * *Returns* :
-  #   -
-  # * *Raises* :
-  #   - ++ ->
+  #   - a 'fitness' degree between 0 and 1.0
   #
-  def dom(value)
+  def calculate_dom(value)
     raise "Subclass must define!"
   end
 

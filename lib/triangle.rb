@@ -15,7 +15,7 @@ class Triangle < FuzzySet
     @right_subdiv = -@height / (@peak - @right)
   end
 
-  def dom(value)
+  def calculate_dom(value)
     if value < @left
       0.0
     elsif value < @peak
