@@ -52,4 +52,14 @@ class TrapezoidTest < MiniTest::Unit::TestCase
     assert_equal(0.6, t.mu(12.0))
   end
 
+  def test_centroid_calculation_1
+    t = Trapezoid.new(0, 20, 50, 50)
+    assert_equal([29.583333333333332, 0.4583333333333333], t.centroid)
+  end
+
+  def test_centroid_calculation_2
+    t = Trapezoid.new(0, 10, 20, 30)
+    assert_equal([15.0, 0.4166666666666667], t.centroid)
+  end
+
 end
