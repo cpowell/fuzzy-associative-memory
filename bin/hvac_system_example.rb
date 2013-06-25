@@ -3,8 +3,7 @@ $:.push File.expand_path('../../lib/', __FILE__)
 
 require 'fuzzy_variable'
 require 'triangle'
-require 'left_shoulder'
-require 'right_shoulder'
+require 'trapezoid'
 
 require 'fuzzy_rule'
 require 'fuzzy_ruleset'
@@ -21,11 +20,11 @@ require 'fuzzy_ruleset'
 temperature_in = FuzzyVariable.new("room temperature") # degrees fahrenheit
 
 # Wider: less important, coarse control; narrower: more important, fine control
-cold       = Triangle.new(30, 40, 50)  # 20 deg wide
+cold       = Trapezoid.new(20, 30, 40, 50)  # 20 deg wide
 cool       = Triangle.new(45, 55, 65)  # 20 deg wide
 just_right = Triangle.new(60, 65, 70)  # 10 deg wide
 warm       = Triangle.new(65, 75, 85)  # 20 deg wide
-hot        = Triangle.new(80, 90, 100) # 20 deg wide
+hot        = Trapezoid.new(80, 90, 100, 110) # 20 deg wide
 
 temperature_in.fuzzy_sets = [cold, cool, just_right, warm, hot]
 
