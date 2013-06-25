@@ -4,37 +4,41 @@ class FuzzyRuleset
   attr_reader :name
 
   def initialize(name)
-    @name        = name
-    @rules       = []
-    @consequents = []
-    @input_mus   = []
+    @name           = name
+    @rules          = []
+    @antecedent_mus = []
+    @consequents    = []
   end
 
   def add_rule(fuzzy_rule)
     @rules << fuzzy_rule
   end
 
-  def calculate(value)
+  def calculate(input_value)
     # Fire each rule to determine the µ value (degree of fit) for the
     # antecedent fuzzy set.
-    @rules.each_with_index do |rule, index|
-      @input_mus[index] = rule.fire(value)
+    @rules.each_with_index do |rule, rule_num|
+      @antecedent_mus[rule_num] = rule.fire(input_value)
     end
 
-    # Using the antecedent's µ value, scale the consequent fuzzy set's
+    # Using the antecedent's µ value, alter the consequent fuzzy set's
     # polgyon. This is called implication, and 'weights' the output sets to
     # map properly. There are several common ways of doing it, such as Larsen
     # (scaling) and Mamdani (clipping).
-    @rules.each_with_index do |rule, index|
-      @consequents[index] = rule.consequent.larsen(@input_mus[index])
+    @rules.each_with_index do |rule, rule_num|
+      @consequents[rule_num] = rule.consequent.larsen(@antecedent_mus[rule_num])
     end
 
-    # Defuzzify into a discrete & usable value. Here we use the "Average of
-    # Maxima" mechanism. MaxAv is defined as:
-    # (Sigma representative value * µ) / (Sigma µ) for all output sets
-    outputs = @consequents.map { |set| set.centroid[0] * set.height }
-    heights = @consequents.map { |set| set.height }
+    # Defuzzify into a discrete & usable value by adding up the weighted
+    # consequents' contributions to the output. Again there are several ways
+    # of doing it, such as computing the centroid of the combined 'mass', and
+    # the 'mean of maximum' of the tallest set(s). Here we use the "Average
+    # of Maxima" summation mechanism. MaxAv is defined as:
+    # (∑ representative value * height) / (∑ height) for all output sets
+    # where 'representative value' is shape-dependent.
+    numerator_terms   = @consequents.map { |set| set.centroid[0] * set.height }
+    denominator_terms = @consequents.map { |set| set.height }
 
-    outputs.inject{|sum,x| sum + x } / heights.inject{|sum,x| sum + x }
+    numerator_terms.inject{|sum,x| sum + x } / denominator_terms.inject{|sum,x| sum + x }
   end
 end
