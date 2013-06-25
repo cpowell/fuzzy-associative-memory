@@ -40,8 +40,13 @@ class TriangleTest < MiniTest::Unit::TestCase
     assert_equal(0.6, t.mu(7.0))
   end
 
-  # def test_mu
-  #   t = Triangle.new(45, 55, 65)
-  #   assert_equal(0.2, t.mu(63.0))
-  # end
+  def test_centroid_calculation
+    t = Triangle.new(5, 10, 15)
+    assert_equal([10.0, 0.3333333333333333], t.centroid)
+  end
+
+  def test_larsen_scaling
+    scaled = @t.larsen(0.15)
+    assert_equal(0.15, scaled.height)
+  end
 end

@@ -38,7 +38,7 @@ class Triangle < FuzzySet
   end
 
   def to_s
-    "Triangle {#{left}/#{center}/#{right}, height #{height}}"
+    "Triangle {#{@left}/#{@center}/#{@right}, height #{@height}}"
   end
 
 end
