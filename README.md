@@ -26,5 +26,10 @@ To do:
 The `bin` directory contains the following examples:
 * `hvac_system_example` illustrates how a FAM could govern an HVAC fan unit to maintain a constant, comfortable temperature
 
+## References used in the creation of this software
+* ["Fuzzy Thinking: The New Science of Fuzzy Logic" by Bart Kosko](http://www.amazon.com/Fuzzy-Thinking-New-Science-Logic/dp/0006547133/)
+* ["Fuzzy Logic: The Revolutionary Computer Technology that is Changing the World" by Daniel McNeill & Paul Freiberger](http://www.amazon.com/Fuzzy-Logic-Revolutionary-Computer-Technology/dp/0671875353/)
+ 
+
 
 
