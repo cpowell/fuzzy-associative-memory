@@ -12,23 +12,24 @@ As you can see, the rules are deliberately vague and use qualifiers like "a litt
 
 It has a wide range of applications:
 
-* Industrial control, such as governing a fan to keep a room at the "just right" temperature
+* Control systems, such as governing a fan to keep a room at the "just right" temperature
 * Game AI, such as giving human-like behavior capabilities to NPCs
 * Prediction systems
 
 ## Status
 
 This is working, functional software. It currently supports:
-* Triangular fuzzy sets for input/output
+* Triangular & trapezoidal fuzzy sets for input/output
 * Larsen Implication (scaling)
 * Atomic antecedent propositions (`if A then Z`)
 
 To do:
-* Trapezoidal (and other shapes) for fuzzy sets
+* Other shapes for fuzzy sets
 * Hedges ('very' and 'fairly')
 * Mamdani Implication (clipping)
 * Composite antecedent propositions (`if A or B, then Z` / `if A and B, then Z`)
 * Additional examples
+* Hard validations to prevent bad shapes, improper FAM layout
 
 ## Examples
 
@@ -38,7 +39,5 @@ The `bin` directory contains the following examples:
 ## References used in the creation of this software
 * ["Fuzzy Thinking: The New Science of Fuzzy Logic" by Bart Kosko](http://www.amazon.com/Fuzzy-Thinking-New-Science-Logic/dp/0006547133/)
 * ["Fuzzy Logic: The Revolutionary Computer Technology that is Changing the World" by Daniel McNeill & Paul Freiberger](http://www.amazon.com/Fuzzy-Logic-Revolutionary-Computer-Technology/dp/0671875353/)
- 
-
-
+* ["Fuzzy Logic in Decision Making and Signal Processing" by Sujit Nath Pant & Keith E. Holbert"](http://enpub.fulton.asu.edu/powerzone/fuzzylogic/index.htm)
 

@@ -15,17 +15,15 @@ class FuzzyRuleset
   end
 
   def calculate(input_value)
-    # Fire each rule to determine the µ value (degree of fit) for the
-    # antecedent fuzzy set.
     @rules.each_with_index do |rule, rule_num|
+      # Fire each rule to determine the µ value (degree of fit) for the
+      # antecedent fuzzy set.
       @antecedent_mus[rule_num] = rule.fire(input_value)
-    end
 
-    # Using the antecedent's µ value, alter the consequent fuzzy set's
-    # polgyon. This is called implication, and 'weights' the output sets to
-    # map properly. There are several common ways of doing it, such as Larsen
-    # (scaling) and Mamdani (clipping).
-    @rules.each_with_index do |rule, rule_num|
+      # Using the antecedent's µ value, alter the consequent fuzzy set's
+      # polgyon. This is called implication, and 'weights' the output sets to
+      # map properly. There are several common ways of doing it, such as Larsen
+      # (scaling) and Mamdani (clipping).
       @consequents[rule_num] = rule.consequent.larsen(@antecedent_mus[rule_num])
     end
 
