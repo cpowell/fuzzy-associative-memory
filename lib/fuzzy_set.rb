@@ -15,11 +15,12 @@ class FuzzySet
     raise "Subclass must define!"
   end
 
-  def scale(ratio)
-    raise "Subclass must define!"
-  end
-
   def centroid
     raise "Subclass must define!"
   end
+
+  def larsen(ratio)
+    raise "Subclass must define!"
+  end
+
 end

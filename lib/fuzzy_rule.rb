@@ -1,3 +1,4 @@
+# encoding: utf-8
 class FuzzyRule
   attr_reader :antecedent, :consequent
 
@@ -8,9 +9,10 @@ class FuzzyRule
   #   - +antecedent+ -> the input fuzzy set
   #   - +consequent+ -> the output fuzzy set
   #
-  def initialize(antecedent, consequent)
+  def initialize(antecedent, consequent, natural_language=nil)
     @antecedent = antecedent
     @consequent = consequent
+    @natural_language = natural_language
   end
 
   # Triggers the rule. The antecedent is fired with the supplied value
@@ -25,9 +27,9 @@ class FuzzyRule
   #   - ++ ->
   #
   def fire(value)
-    input_dom = antecedent.mu(value)
-    # puts "Rule fired and got back #{input_dom}"
-
-    retval = consequent.scale(input_dom)
+    mu = antecedent.mu(value)
+    # puts "Fired rule '#{@natural_language}': µ is #{mu}"
+    mu
   end
+
 end

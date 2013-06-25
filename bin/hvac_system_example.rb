@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
-
 $:.push File.expand_path('../../lib/', __FILE__)
 
 require 'fuzzy_variable'
@@ -47,13 +46,16 @@ fan_speed.fuzzy_sets = [stop, slow, medium, fast, blast]
 # "If the temperature is cool, the fan motor speed should be slow."
 system = FuzzyRuleset.new("HVAC control")
 
-rule_1 = FuzzyRule.new(temperature_in[0], fan_speed[0])
-rule_2 = FuzzyRule.new(temperature_in[1], fan_speed[1])
-rule_3 = FuzzyRule.new(temperature_in[2], fan_speed[2])
-rule_4 = FuzzyRule.new(temperature_in[3], fan_speed[3])
-rule_5 = FuzzyRule.new(temperature_in[4], fan_speed[4])
+rule_1 = FuzzyRule.new(cold, stop, 'If room is cold, the fan motor stops')
+rule_2 = FuzzyRule.new(cool, slow, 'If room is cool, the fan motor is slow')
+rule_3 = FuzzyRule.new(just_right, medium, 'If room is just right, the fan motor is medium')
+rule_4 = FuzzyRule.new(warm, fast, 'If room is warm, the fan motor speeds up')
+rule_5 = FuzzyRule.new(hot, blast, 'If room is hot, the fan motor runs full-blast')
 
 system.rules = [rule_1, rule_2, rule_3, rule_4, rule_5]
+
+# n=64
+# puts "The #{system.name} determines: for #{temperature_in.name} #{n}, the #{fan_speed.name} is #{system.calculate(n)} CFM"
 
 # Check the logic for a wide range of temps and output the results
 (40..90).each do |n|
