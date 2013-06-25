@@ -2,51 +2,43 @@ require 'lib/fuzzy_set'
 
 class Triangle < FuzzySet
 
-  attr_reader :left, :peak, :right, :height
+  attr_reader :left, :center, :right, :height
 
-  def initialize(left, peak, right, height=1.0)
+  def initialize(left, center, right, height=1.0)
     # TODO validations
 
-    @peak         = peak
-    @left         = left
-    @right        = right
-    @height       = height
-    @left_subdiv  = @height / (@peak - @left)
-    @right_subdiv = -@height / (@peak - @right)
+    @center   = center
+    @left   = left
+    @right  = right
+    @height = height
   end
 
-  def calculate_dom(value)
-    if value < @left
+  def mu(value)
+    if value < @left || value > @right
       0.0
-    elsif value < @peak
-      (value - @left) * @left_subdiv
-    elsif value < @right
-      (@right - value) * @right_subdiv
     else
-      0.0
+      1 - ((@center-value).abs / ((@right - @left) / 2.0 ))
     end
   end
 
   def centroid
-    cx = (@left + @right + @peak) / 3.0
+    cx = (@left + @right + @center) / 3.0
     cy = @height / 3.0
     [cx, cy]
   end
 
   def height=(new_height)
-    @height       = new_height
-    @left_subdiv  = @height / (@peak - @left)
-    @right_subdiv = -@height / (@peak - @right)
+    @height = new_height
   end
 
-  def scale(ratio)
+  def larsen(ratio)
     t = self.dup
     t.height=(t.height * ratio)
     t
   end
 
   def to_s
-    "Triangle {#{left}/#{peak}/#{right}, height #{height}}"
+    "Triangle {#{left}/#{center}/#{right}, height #{height}}"
   end
 
 end

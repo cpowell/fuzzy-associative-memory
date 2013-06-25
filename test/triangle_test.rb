@@ -29,4 +29,19 @@ class TriangleTest < MiniTest::Unit::TestCase
   def test_dom_is_half_at_half_left_offset
     assert_equal(0.5, @t.mu(8.5))
   end
+
+  def test_dom_is_correct_at_three_fifths_offset
+    t = Triangle.new(0, 5, 10)
+    assert_equal(0.6, t.mu(3.0))
+  end
+
+  def test_dom_is_correct_at_seven_tenths_offset
+    t = Triangle.new(0, 5, 10)
+    assert_equal(0.6, t.mu(7.0))
+  end
+
+  # def test_mu
+  #   t = Triangle.new(45, 55, 65)
+  #   assert_equal(0.2, t.mu(63.0))
+  # end
 end
