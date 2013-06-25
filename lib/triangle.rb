@@ -7,10 +7,10 @@ class Triangle < FuzzySet
   def initialize(left, center, right, height=1.0)
     # TODO validations
 
-    @center   = center
-    @left   = left
-    @right  = right
-    @height = height
+    @center = center.to_f
+    @left   = left.to_f
+    @right  = right.to_f
+    @height = height.to_f
   end
 
   def mu(value)

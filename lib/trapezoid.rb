@@ -7,11 +7,11 @@ class Trapezoid < FuzzySet
   def initialize(left, top_left, top_right, right, height=1.0)
     # TODO validations
 
-    @left      = left
-    @top_left  = top_left
-    @top_right = top_right
-    @right     = right
-    @height    = height
+    @left      = left.to_f
+    @top_left  = top_left.to_f
+    @top_right = top_right.to_f
+    @right     = right.to_f
+    @height    = height.to_f
   end
 
   def mu(value)
