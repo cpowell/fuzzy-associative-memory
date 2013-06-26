@@ -34,14 +34,15 @@ class Trapezoid < FuzzySet
     end
   end
 
-  def centroid
-    a = @top_right-@top_left
+  def centroid_x
+    a = @top_right - @top_left
     b = @right - @left
     c = @top_left - @left
 
     cx = (2.0*a*c + a**2 + c*b + a*b + b**2.0) / (3.0 * (a+b))
-    cy = (@height * (2.0*a + b)) / (3.0 * (a+b))
-    [cx+@left, cy]
+    cx + @left
+    # cy = (@height * (2.0*a + b)) / (3.0 * (a+b))
+    # [cx+@left, cy]
   end
 
   def height=(new_height)
