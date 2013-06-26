@@ -56,11 +56,11 @@ fan_speed.fuzzy_sets = [stop, slow, medium, fast, blast]
 # "If the temperature is cool, the fan motor speed should be slow."
 system = FuzzyRuleset.new("HVAC control")
 
-rule_1 = FuzzyRule.new('If room is cold, the fan motor stops', [cold], nil, stop)
-rule_2 = FuzzyRule.new('If room is cool, the fan motor is slow', [cool], nil, slow, )
+rule_1 = FuzzyRule.new('If room is cold, the fan motor stops',           [cold],       nil, stop)
+rule_2 = FuzzyRule.new('If room is cool, the fan motor is slow',         [cool],       nil, slow)
 rule_3 = FuzzyRule.new('If room is just right, the fan motor is medium', [just_right], nil, medium)
-rule_4 = FuzzyRule.new('If room is warm, the fan motor speeds up', [warm], nil, fast)
-rule_5 = FuzzyRule.new('If room is hot, the fan motor runs full-blast', [hot], nil, blast)
+rule_4 = FuzzyRule.new('If room is warm, the fan motor speeds up',       [warm],       nil, fast)
+rule_5 = FuzzyRule.new('If room is hot, the fan motor runs full-blast',  [hot],        nil, blast)
 
 system.rules = [rule_1, rule_2, rule_3, rule_4, rule_5]
 
