@@ -10,6 +10,11 @@ making. It uses Fuzzy Sets to establish a set of rules that are linguistic in na
 * "If the ship is off course by a little bit, correct just a little to the right"
 * "If the bird is much slower than the flock, speed it up a lot"
 
+After the rules are defined, a FAM is consulted to help your AI make a descision:
+* The orc retreats, attacks, strafes.
+* The ship launches long range missiles or fires short range guns.
+* The control rods are lowered into the reactor or raised out of it.
+
 As you can see, the fuzzy rules are deliberately vague and use qualifiers like "a little" and "a lot". This is the nature of fuzzy sets; they capture such human fuzziness in a way that extracts highly natural behavior from the fuzzy rules.
 
 Fuzzy logic FAMs have a wide range of applications:
