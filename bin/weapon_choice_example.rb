@@ -26,8 +26,8 @@ $verbosity = false
 # "Programming Game AI by Example". In this we illustrate how an AI 'bot'
 # might use fuzzy logic to pick which weapon to use. Unlike the 'HVAC system'
 # example, which uses just one input, this example uses two inputs: distance
-# to enemy, and ammo remaining. THEN WE RUN THE FAM FOR TWO DIFFERENT WEAPONS,
-# ROCKET AND SHOTGUN, TO CHOOSE WHICH WEAPON TO USE.
+# to enemy, and ammo remaining. WE SET UP AND RUN TWO FAMS, FOR TWO DIFFERENT
+# WEAPONS (ROCKET AND SHOTGUN), TO CHOOSE WHICH WEAPON TO USE.
 
 # The input side -- the antecedents -- are expressed as a number of fuzzy sets,
 # with each set representing a natural-language description. The 'distance to
