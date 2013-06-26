@@ -9,7 +9,7 @@
 #
 $:.push File.expand_path('../../lib/', __FILE__)
 
-require 'fuzzy_variable'
+require 'fuzzy_linguistic_variable'
 require 'triangle'
 require 'trapezoid'
 
@@ -32,7 +32,7 @@ $verbosity = false
 # The input side -- the antecedents -- are expressed as a number of fuzzy sets,
 # with each set representing a natural-language description. The 'distance to
 # target' variable is an assemblage of our fuzzy input sets.
-target_dist = FuzzyVariable.new("distance to target") # pixels
+target_dist = FuzzyLinguisticVariable.new("distance to target") # pixels
 
 tgt_close  = Trapezoid.new(-150, -25, 25, 150)
 tgt_medium = Triangle.new(25, 150, 300)
@@ -42,7 +42,7 @@ target_dist.fuzzy_sets = [tgt_close, tgt_medium, tgt_far]
 
 # Now for the second input (or antecedent): the amount of ammo left for this
 # particular weapon.
-rocket_ammo_status = FuzzyVariable.new("rocket launcher ammo quantity")
+rocket_ammo_status = FuzzyLinguisticVariable.new("rocket launcher ammo quantity")
 
 rkt_ammo_low   = Triangle.new(-10, 0, 10)
 rkt_ammo_okay  = Triangle.new(0, 10, 30)
@@ -53,7 +53,7 @@ rocket_ammo_status.fuzzy_sets = [rkt_ammo_low, rkt_ammo_okay, rkt_ammo_loads]
 # The output side -- the consequent -- expressed as a number of fuzzy sets,
 # with each set representing a natural-language description. The 'resultant
 # fan speed' variable is the  assemblage of all our fuzzy output sets.
-desirability = FuzzyVariable.new("weapon desirability")
+desirability = FuzzyLinguisticVariable.new("weapon desirability")
 
 undes   = Trapezoid.new(0, 0, 20, 50)
 desir   = Triangle.new(30, 50, 70)
@@ -89,7 +89,7 @@ puts "#{rkt_ruleset.name}: for #{target_dist.name} #{d} and #{rocket_ammo_status
 
 # Now for the second input (or antecedent): the amount of ammo left for this
 # particular weapon.
-shotgun_ammo_status = FuzzyVariable.new("shotgun ammo quantity")
+shotgun_ammo_status = FuzzyLinguisticVariable.new("shotgun ammo quantity")
 gun_ammo_low   = Triangle.new(-10, 0, 10)
 gun_ammo_okay  = Triangle.new(0, 10, 30)
 gun_ammo_loads = Trapezoid.new(10, 30, 40, 40)

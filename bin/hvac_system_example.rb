@@ -9,7 +9,7 @@
 #
 $:.push File.expand_path('../../lib/', __FILE__)
 
-require 'fuzzy_variable'
+require 'fuzzy_linguistic_variable'
 require 'triangle'
 require 'trapezoid'
 
@@ -28,7 +28,7 @@ $verbosity = false
 # The input side -- the antecedent -- is expressed as a number of fuzzy sets,
 # with each set representing a natural-language description. The 'temperature
 # input' variable, is the  assemblage of all our fuzzy input sets.
-temperature_in = FuzzyVariable.new("room temperature") # degrees fahrenheit
+temperature_in = FuzzyLinguisticVariable.new("room temperature") # degrees fahrenheit
 
 # Wider: less important, coarse control; narrower: more important, fine control
 cold       = Trapezoid.new(40, 40, 40, 50)  # 20 deg wide
@@ -42,7 +42,7 @@ temperature_in.fuzzy_sets = [cold, cool, just_right, warm, hot]
 # The output side -- the consequent -- expressed as a number of fuzzy sets,
 # with each set representing a natural-language description. The 'resultant
 # fan speed' variable, is the  assemblage of all our fuzzy output sets.
-fan_speed = FuzzyVariable.new("fan speed") # cubic feet per minute (CFM)
+fan_speed = FuzzyLinguisticVariable.new("fan speed") # cubic feet per minute (CFM)
 
 stop   = Triangle.new(-30, 0, 30)   # 60 CFM wide
 slow   = Triangle.new(10, 30, 50)   # 40 CFM wide
