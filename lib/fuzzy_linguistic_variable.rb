@@ -6,7 +6,7 @@
 # You can redistribute and/or modify this software only in accordance with
 # the terms found in the "LICENSE" file included with the library.
 #
-class FuzzyVariable
+class FuzzyLinguisticVariable
   attr_accessor :fuzzy_sets
   attr_reader :name
 
