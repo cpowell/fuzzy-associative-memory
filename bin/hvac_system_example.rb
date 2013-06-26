@@ -20,11 +20,11 @@ require 'fuzzy_ruleset'
 temperature_in = FuzzyVariable.new("room temperature") # degrees fahrenheit
 
 # Wider: less important, coarse control; narrower: more important, fine control
-cold       = Trapezoid.new(20, 30, 40, 50)  # 20 deg wide
+cold       = Trapezoid.new(40, 40, 40, 50)  # 20 deg wide
 cool       = Triangle.new(45, 55, 65)  # 20 deg wide
 just_right = Triangle.new(60, 65, 70)  # 10 deg wide
 warm       = Triangle.new(65, 75, 85)  # 20 deg wide
-hot        = Trapezoid.new(80, 90, 100, 110) # 20 deg wide
+hot        = Trapezoid.new(80, 90, 90, 90) # 20 deg wide
 
 temperature_in.fuzzy_sets = [cold, cool, just_right, warm, hot]
 
@@ -45,11 +45,11 @@ fan_speed.fuzzy_sets = [stop, slow, medium, fast, blast]
 # "If the temperature is cool, the fan motor speed should be slow."
 system = FuzzyRuleset.new("HVAC control")
 
-rule_1 = FuzzyRule.new(cold, stop, 'If room is cold, the fan motor stops')
-rule_2 = FuzzyRule.new(cool, slow, 'If room is cool, the fan motor is slow')
-rule_3 = FuzzyRule.new(just_right, medium, 'If room is just right, the fan motor is medium')
-rule_4 = FuzzyRule.new(warm, fast, 'If room is warm, the fan motor speeds up')
-rule_5 = FuzzyRule.new(hot, blast, 'If room is hot, the fan motor runs full-blast')
+rule_1 = FuzzyRule.new('If room is cold, the fan motor stops', [cold], nil, stop)
+rule_2 = FuzzyRule.new('If room is cool, the fan motor is slow', [cool], nil, slow, )
+rule_3 = FuzzyRule.new('If room is just right, the fan motor is medium', [just_right], nil, medium)
+rule_4 = FuzzyRule.new('If room is warm, the fan motor speeds up', [warm], nil, fast)
+rule_5 = FuzzyRule.new('If room is hot, the fan motor runs full-blast', [hot], nil, blast)
 
 system.rules = [rule_1, rule_2, rule_3, rule_4, rule_5]
 
@@ -58,5 +58,5 @@ system.rules = [rule_1, rule_2, rule_3, rule_4, rule_5]
 
 # Check the logic for a wide range of temps and output the results
 (40..90).each do |n|
-  puts "The #{system.name} determines: for #{temperature_in.name} #{n}, the #{fan_speed.name} is #{system.calculate(n)} CFM"
+  puts "\nThe #{system.name} determines: for #{temperature_in.name} #{n}, the #{fan_speed.name} is #{system.calculate(n)} CFM"
 end
