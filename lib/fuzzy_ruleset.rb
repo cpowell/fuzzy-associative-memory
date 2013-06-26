@@ -26,10 +26,9 @@ class FuzzyRuleset
   end
 
   def calculate(*input_values)
-    @consequent_mus      = {}
-    @kept_consequents    = {}
-    @implied_consequents = []
-    @consequents         = []
+    @consequent_mus   = {}
+    @kept_consequents = {}
+    @consequents      = []
 
     puts ">>> Firing all rules..." if $verbosity
     @rules.each_with_index do |rule, rule_num|
@@ -77,15 +76,6 @@ class FuzzyRuleset
     # where 'representative value' is shape-dependent.
     numerator_terms   = @consequents.map { |set| set.centroid_x * set.height }
     denominator_terms = @consequents.map { |set| set.height }
-    # numerator_terms   = []
-    # denominator_terms = []
-    # @kept_consequents.each do |cons, mu|
-    #   @consequents << cons.mam
-    #   # confidence = ( implication_mechanism == :larsen ? mu : [cons.height, mu].min )
-    #   # numerator_terms << cons.centroid_x * confidence
-    #   # denominator_terms << confidence
-    # end
-
     numerator_terms.inject{|sum,x| sum + x } / denominator_terms.inject{|sum,x| sum + x }
   end
 end
