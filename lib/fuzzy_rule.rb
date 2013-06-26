@@ -1,35 +1,55 @@
 # encoding: utf-8
 class FuzzyRule
-  attr_reader :antecedent, :consequent
+  attr_reader :antecedents, :consequent, :boolean
 
   # Marries an input fuzzy set and an output fuzzy set in an if-then
   # arrangement, i.e. if (antecedent) then (consequent).
   #
   # * *Args*    :
-  #   - +antecedent+ -> the input fuzzy set
+  #   - +antecedent_array+ -> an array of one or more input fuzzy sets
+  #   - +boolean+ -> term to join the antecedents, may be: nil, 'AND', 'OR'
   #   - +consequent+ -> the output fuzzy set
+  #   - +natural_language+ -> a rule description (your own words), useful in output
   #
-  def initialize(antecedent, consequent, natural_language=nil)
-    @antecedent = antecedent
-    @consequent = consequent
+  def initialize(natural_language, antecedent_array, boolean, consequent)
+    raise ArgumentError, "Antecedent array must contain at least one fuzzy set" unless antecedent_array.size > 0
+    raise ArgumentError, "Consequent must be provided" unless consequent
+
+    if antecedent_array.size > 1
+      raise ArgumentError, "boolean must be sym :and or :or" unless [:and, :or].include? boolean
+    else
+      raise ArgumentError, "boolean must be nil" unless boolean.nil?
+    end
+
     @natural_language = natural_language
+    @antecedents      = antecedent_array
+    @consequent       = consequent
+    @boolean          = boolean
   end
 
-  # Triggers the rule. The antecedent is fired with the supplied value
-  # and the consequent is scaled according to the antecedent's DOM
-  # (degree of membership).
+  # Triggers the rule. The antecedent(s) is/are fired with the supplied inputs
+  # and the µ (degree of fit) is calculated and returned.
   #
   # * *Args*    :
-  #   - +value+ -> the input value for the rule (degrees, distance, strength, whatever)
+  #   - +value_array+ -> an array of input values for the rule (degrees, distance, strength, whatever)
   # * *Returns* :
-  #   - the consequent, scaled by the antecedent's DOM
-  # * *Raises* :
-  #   - ++ ->
+  #   - the degree of fit for this rule
   #
-  def fire(value)
-    mu = antecedent.mu(value)
-    # puts "Fired rule '#{@natural_language}': µ is #{mu}"
-    mu
+  def fire(value_array)
+    mus = Array.new
+
+    @antecedents.each_with_index do |antecedent, index|
+      mus[index] = antecedent.mu(value_array[index])
+    end
+
+    if @boolean==:and
+      mu = mus.min # AND / Intersection == minimum
+    else
+      mu = mus.max # OR / Union == maximum
+    end
+
+    puts "Fired rule '#{@natural_language}': µ choices are [#{mus.join(',')}], final µ is #{mu}"
+    [@consequent, mu]
   end
 
 end
