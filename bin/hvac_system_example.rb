@@ -16,6 +16,9 @@ require 'trapezoid'
 require 'fuzzy_rule'
 require 'fuzzy_ruleset'
 
+# Set me to true to enable some verbose output of my calculations...
+$verbosity = false
+
 # This example is the logic to drive an HVAC fan unit depending on the ambient
 # room temperature. A hotter room needs a higher fan; in a cooler room the fan
 # can slow, and in a cold room the fan should stop. For the graphs and
@@ -66,5 +69,5 @@ system.rules = [rule_1, rule_2, rule_3, rule_4, rule_5]
 
 # Check the logic for a wide range of temps and output the results
 (40..90).each do |n|
-  puts "\nThe #{system.name} determines: for #{temperature_in.name} #{n}, the #{fan_speed.name} is #{system.calculate(n)} CFM"
+  puts "The #{system.name} determines: for #{temperature_in.name} #{n}, the #{fan_speed.name} is #{system.calculate(n)} CFM"
 end

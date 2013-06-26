@@ -27,7 +27,7 @@ class FuzzyRuleset
     @kept_consequents = Hash.new
     @consequent_mus = Hash.new
 
-    puts ">>> Firing all rules..."
+    puts ">>> Firing all rules..." if $verbosity
     @rules.each_with_index do |rule, rule_num|
       # Fire each rule to determine the µ value (degree of fit).
       # Gather the µ vals by consequent, since each consequent may in fact

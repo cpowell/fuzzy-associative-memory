@@ -56,7 +56,7 @@ class FuzzyRule
       mu = mus.max # OR / Union == maximum
     end
 
-    puts "Fired rule '#{@natural_language}': µ choices are [#{mus.join(',')}], final µ is #{mu}"
+    puts "Fired rule '#{@natural_language}': µ choices are [#{mus.join(',')}], final µ is #{mu}" if $verbosity
     [@consequent, mu]
   end
 
