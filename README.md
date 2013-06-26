@@ -1,7 +1,15 @@
 # Fuzzy logic "Fuzzy Associative Memory"
 
 A Fuzzy Associative Memory (FAM for short) is a Fuzzy Logic tool for decision
-making. It uses Fuzzy Sets to establish a set of rules that are linguistic in nature; examples might include:
+making. Fuzzy logic FAMs have a wide range of practical applications:
+
+* Control systems, such as governing a fan to keep a room at the "just right" temperature
+* Game AI, such as imbuing bots with human-like decision-making behavior
+* Prediction systems, linking causes with effects
+ 
+## How it works
+
+A Fuzzy Associative Memory uses Fuzzy Sets to establish a set of rules that are linguistic in nature; examples might include:
 
 * "If the room is a bit warm, turn the fan up a little bit"
 * "If the orc's hit points are a little low, retreat from the enemy"
@@ -10,22 +18,21 @@ making. It uses Fuzzy Sets to establish a set of rules that are linguistic in na
 * "If the ship is off course by a little bit, correct just a little to the right"
 * "If the bird is much slower than the flock, speed it up a lot"
 
+The linguistic rules, and the fuzzy sets they contain, are defined by a human "expert" (presumably, you). That is to say,
+the rules *codify intelligence* and map this knowledge from the human domain to the digital. 
+
 After the rules are defined, a FAM is consulted to help your AI make a descision:
 * The orc retreats, attacks, strafes.
 * The ship launches long range missiles or fires short range guns.
 * The control rods are lowered into the reactor or raised out of it.
 
-As you can see, the fuzzy rules are deliberately vague and use qualifiers like "a little" and "a lot". This is the nature of fuzzy sets; they capture such human fuzziness in a way that extracts highly natural behavior from the fuzzy rules.
-
-Fuzzy logic FAMs have a wide range of applications:
-
-* Control systems, such as governing a fan to keep a room at the "just right" temperature
-* Game AI, such as imbuing bots with human-like decision-making behavior
-* Prediction systems, linking causes with effects
+As you can see, the fuzzy rules are deliberately vague and use qualifiers like "a little" and "a lot". Furthermore, the lines
+between fuzzy sets are intentionally blurry. This is the nature of fuzzy sets; they capture such human fuzziness in a way that extracts highly natural behavior from the fuzzy rules.
+When defining these rules, it helps to imagine interviewing a bona fide expert in the domain and writing down the skills necessary to be successful in the domain.
 
 ## Project status
 
-This is working, functional software. It currently supports:
+This is working, functional software, suitable for use in your own game or application. It currently supports:
 * Triangular & trapezoidal fuzzy sets for input/output
 * Larsen Implication (scaling)
 * Mamdani Implication (clipping)
