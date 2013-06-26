@@ -28,14 +28,14 @@ Fuzzy logic FAMs have a wide range of applications:
 This is working, functional software. It currently supports:
 * Triangular & trapezoidal fuzzy sets for input/output
 * Larsen Implication (scaling)
+* Mamdani Implication (clipping)
 * Atomic antecedent propositions (`if A then Z`)
 * Composite antecedent propositions (`if A or B, then Z` / `if A and B, then Z`)
 
-To do:
+To do (in descending importance, roughly):
+* Parameter validations to prevent bad shapes, improper FAM layout, etc.
 * Other shapes for fuzzy sets
 * Hedges ('very' and 'fairly')
-* Mamdani Implication (clipping)
-* Parameter validations to prevent bad shapes, improper FAM layout, etc.
 * Additional examples
 
 ## Included examples

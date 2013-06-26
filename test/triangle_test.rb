@@ -49,4 +49,15 @@ class TriangleTest < MiniTest::Unit::TestCase
     scaled = @t.larsen(0.15)
     assert_equal(0.15, scaled.height)
   end
+
+  def test_mamdani_clipping_1
+    t2 = @t.mamdani(0.83)
+    assert(t2.is_a? Trapezoid)
+    assert_equal(7, t2.left)
+    assert_equal(9.49, t2.top_left)
+    assert_equal(10.51, t2.top_right)
+    assert_equal(13, t2.right)
+    assert_equal(0.83, t2.height)
+  end
+
 end
