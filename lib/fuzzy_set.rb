@@ -23,7 +23,7 @@ class FuzzySet
     raise "Subclass must define!"
   end
 
-  def centroid
+  def centroid_x
     raise "Subclass must define!"
   end
 

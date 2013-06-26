@@ -7,6 +7,7 @@
 # the terms found in the "LICENSE" file included with the library.
 #
 require 'lib/fuzzy_set'
+require 'lib/trapezoid'
 
 class Triangle < FuzzySet
 
@@ -43,6 +44,15 @@ class Triangle < FuzzySet
     t = self.dup
     t.height=(t.height * ratio)
     t
+  end
+
+  def mamdani(clip_height)
+    left      = @left
+    top_left  = @left + (clip_height * (@center - @left))
+    top_right = @right - (clip_height * (@right - @center))
+    right     = @right
+
+    Trapezoid.new(left, top_left, top_right, right, clip_height)
   end
 
   def to_s

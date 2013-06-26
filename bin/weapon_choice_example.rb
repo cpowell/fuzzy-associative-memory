@@ -19,6 +19,8 @@ require 'fuzzy_ruleset'
 # Set me to true to enable some verbose output of my calculations...
 $verbosity = false
 
+implication = :mamdani # or :larsen
+
 # This is a complicated example; I recommend you understand the 'HVAC system
 # example' before trying to grok this one.
 #
@@ -63,7 +65,7 @@ desirability.fuzzy_sets = [undes, desir, v_desir]
 
 # Natural-language marriage of the inputs to the outputs, e.g.
 # "If the temperature is cool, the fan motor speed should be slow."
-rkt_ruleset = FuzzyRuleset.new("Rocket launcher desirability")
+rkt_ruleset = FuzzyRuleset.new("Rocket launcher desirability", implication)
 
 rule_1 = FuzzyRule.new('If target is far and I have loads of rocket ammo, rocket launcher is desirable', [tgt_far, rkt_ammo_loads], :and, desir)
 rule_2 = FuzzyRule.new('If target is far and I have some rocket ammo, rocket launcher is undesirable', [tgt_far, rkt_ammo_okay], :and, undes)
@@ -95,7 +97,7 @@ gun_ammo_okay  = Triangle.new(0, 10, 30)
 gun_ammo_loads = Trapezoid.new(10, 30, 40, 40)
 shotgun_ammo_status.fuzzy_sets = [gun_ammo_low, gun_ammo_okay, gun_ammo_loads]
 
-gun_ruleset = FuzzyRuleset.new("Shotgun desirability")
+gun_ruleset = FuzzyRuleset.new("Shotgun desirability", implication)
 rule_1 = FuzzyRule.new('If target is far and I have loads of shotgun ammo, shotgun is undesirable', [tgt_far, gun_ammo_loads], :and, undes)
 rule_2 = FuzzyRule.new('If target is far and I have some shotgun ammo, shotgun is undesirable', [tgt_far, gun_ammo_okay], :and, undes)
 rule_3 = FuzzyRule.new('If target is far and I have low shotgun ammo, shotgun is undesirable', [tgt_far, gun_ammo_low], :and, undes)

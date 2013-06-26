@@ -12,10 +12,13 @@ require 'pp'
 class FuzzyRuleset
   attr_accessor :rules
   attr_reader :name
+  attr_reader :implication
 
-  def initialize(name)
+  def initialize(name, implication_mechanism)
+    raise ArgumentError, 'invalid implication mechanism' unless [:larsen, :mamdani].include? implication_mechanism
     @name  = name
     @rules = []
+    @implication = implication_mechanism
   end
 
   def add_rule(fuzzy_rule)
@@ -23,15 +26,17 @@ class FuzzyRuleset
   end
 
   def calculate(*input_values)
-    @consequents    = []
-    @kept_consequents = Hash.new
-    @consequent_mus = Hash.new
+    @consequent_mus      = {}
+    @kept_consequents    = {}
+    @implied_consequents = []
+    @consequents         = []
 
     puts ">>> Firing all rules..." if $verbosity
     @rules.each_with_index do |rule, rule_num|
       # Fire each rule to determine the µ value (degree of fit).
       # Gather the µ vals by consequent, since each consequent may in fact
-      # have been fired more than once.
+      # have been fired more than once and we'll need that knowledge in a
+      # moment...
       cons, mu = rule.fire(input_values)
       if @consequent_mus.has_key?(cons)
         @consequent_mus[cons] << mu
@@ -40,30 +45,47 @@ class FuzzyRuleset
       end
     end
 
-    # Since any given consequent may have fired more than once, we need
-    # to get just a single µ value out of each one. A popular way of doing
-    # so is to OR the values together, i.e. take the maximum µ value.
+    # Since any given consequent may have been activated more than once, we
+    # need to get just a single µ value out -- we only care about the 'best'
+    # µ. A popular way of doing so is to OR the values together, i.e. keep the
+    # maximum µ value and discard the others.
     @consequent_mus.each do |cons, mu_array|
       @kept_consequents[cons] = mu_array.max
     end
 
     # Using each µ value, alter the consequent fuzzy set's polgyon. This is
-    # called implication, and 'weights' the output sets to map properly. There
-    # are several common ways of doing it, such as Larsen (scaling) and
-    # Mamdani (clipping).
+    # called implication, and 'weights' the consequents properly. There are
+    # several common ways of doing it, such as Larsen (scaling) and Mamdani
+    # (clipping).
     @kept_consequents.each do |cons, mu|
-      @consequents << cons.larsen(mu)
+      case @implication
+      when :mamdani
+        @consequents << cons.mamdani(mu)
+      when :larsen
+        @consequents << cons.larsen(mu)
+      else
+        raise RuntimeError, "I must have been passed an unknown implication mechanism: #{@implication}"
+      end
     end
 
     # Defuzzify into a discrete & usable value by adding up the weighted
     # consequents' contributions to the output. Again there are several ways
-    # of doing it, such as computing the centroid of the combined 'mass', and
+    # of doing it, such as computing the centroid of the combined 'mass', or
     # the 'mean of maximum' of the tallest set(s). Here we use the "Average
     # of Maxima" summation mechanism. MaxAv is defined as:
     # (∑ representative value * height) / (∑ height) for all output sets
     # where 'representative value' is shape-dependent.
-    numerator_terms   = @consequents.map { |set| set.centroid[0] * set.height }
+    numerator_terms   = @consequents.map { |set| set.centroid_x * set.height }
     denominator_terms = @consequents.map { |set| set.height }
+    # numerator_terms   = []
+    # denominator_terms = []
+    # @kept_consequents.each do |cons, mu|
+    #   @consequents << cons.mam
+    #   # confidence = ( implication_mechanism == :larsen ? mu : [cons.height, mu].min )
+    #   # numerator_terms << cons.centroid_x * confidence
+    #   # denominator_terms << confidence
+    # end
+
     numerator_terms.inject{|sum,x| sum + x } / denominator_terms.inject{|sum,x| sum + x }
   end
 end

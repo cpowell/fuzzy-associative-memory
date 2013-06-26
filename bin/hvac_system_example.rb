@@ -54,7 +54,7 @@ fan_speed.fuzzy_sets = [stop, slow, medium, fast, blast]
 
 # Natural-language marriage of the inputs to the outputs, e.g.
 # "If the temperature is cool, the fan motor speed should be slow."
-system = FuzzyRuleset.new("HVAC control")
+system = FuzzyRuleset.new("HVAC control", :larsen)
 
 rule_1 = FuzzyRule.new('If room is cold, the fan motor stops',           [cold],       nil, stop)
 rule_2 = FuzzyRule.new('If room is cool, the fan motor is slow',         [cool],       nil, slow)

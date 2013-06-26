@@ -55,6 +55,15 @@ class Trapezoid < FuzzySet
     t
   end
 
+  def mamdani(clip_height)
+    left      = @left
+    top_left  = @left + (clip_height * (@top_left - @left))
+    top_right = @right - (clip_height * (@right - @top_right))
+    right     = @right
+
+    Trapezoid.new(left, top_left, top_right, right, clip_height)
+  end
+
   def to_s
     "Trapezoid {#{@left}/#{@top_left}/#{@top_right}/#{@right}, height #{@height}}"
   end

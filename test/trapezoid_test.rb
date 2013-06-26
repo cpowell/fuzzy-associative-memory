@@ -71,4 +71,25 @@ class TrapezoidTest < MiniTest::Unit::TestCase
     t = Trapezoid.new(20, 30, 40, 50)
     assert_equal(0.9, t.mu(41))
   end
+
+  def test_mamdani_clipping_1
+    t = Trapezoid.new(0, 30, 100, 110)
+    t2 = t.mamdani(0.83)
+    assert_equal(0, t2.left)
+    assert_equal(24.9, t2.top_left)
+    assert_equal(101.7, t2.top_right)
+    assert_equal(110, t2.right)
+    assert_equal(0.83, t2.height)
+  end
+
+  def test_mamdani_clipping_2
+    t = Trapezoid.new(50, 80, 150, 160)
+    t2 = t.mamdani(0.83)
+    assert_equal(50, t2.left)
+    assert_equal(74.9, t2.top_left)
+    assert_equal(151.7, t2.top_right)
+    assert_equal(160, t2.right)
+    assert_equal(0.83, t2.height)
+  end
+
 end
