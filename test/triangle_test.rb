@@ -42,7 +42,7 @@ class TriangleTest < MiniTest::Unit::TestCase
 
   def test_centroid_calculation
     t = Triangle.new(5, 10, 15)
-    assert_equal([10.0, 0.3333333333333333], t.centroid)
+    assert_equal(10.0, t.centroid_x)
   end
 
   def test_larsen_scaling

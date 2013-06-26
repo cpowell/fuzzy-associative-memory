@@ -29,10 +29,10 @@ class Triangle < FuzzySet
     end
   end
 
-  def centroid
+  def centroid_x
     cx = (@left + @right + @center) / 3.0
-    cy = @height / 3.0
-    [cx, cy]
+    # cy = @height / 3.0
+    # [cx, cy]
   end
 
   def height=(new_height)
