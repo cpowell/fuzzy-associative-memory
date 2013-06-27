@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'fuzzy_associative_memory'
-  s.version     = '0.0.5'
+  s.version     = '1.0.0'
   s.date        = '2013-06-26'
   s.summary     = "A fuzzy logic 'Fuzzy Associative Memory' (FAM) for fuzzy control systems, decision-making, artificial intelligence / AI, game agents & bots, etc."
   s.description = <<-EOF
