@@ -7,7 +7,6 @@
 # You can redistribute and/or modify this software only in accordance with
 # the terms found in the "LICENSE" file included with the library.
 #
-
 require 'fuzzy_associative_memory'
 
 # Set me to true to enable some verbose output of my calculations...
