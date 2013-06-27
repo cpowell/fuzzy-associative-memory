@@ -1,0 +1,5 @@
+require 'fuzzy_linguistic_variable'
+require 'triangle'
+require 'trapezoid'
+require 'fuzzy_rule'
+require 'fuzzy_ruleset'
