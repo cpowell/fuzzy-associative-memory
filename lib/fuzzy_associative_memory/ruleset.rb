@@ -7,7 +7,7 @@
 # You can redistribute and/or modify this software only in accordance with
 # the terms found in the "LICENSE" file included with the library.
 #
-class FuzzyAssociativeMemory::FuzzyRuleset
+class FuzzyAssociativeMemory::Ruleset
   attr_accessor :rules
   attr_reader :name
   attr_reader :implication
@@ -19,8 +19,8 @@ class FuzzyAssociativeMemory::FuzzyRuleset
     @implication = implication_mechanism
   end
 
-  def add_rule(fuzzy_rule)
-    @rules << fuzzy_rule
+  def add_rule(rule)
+    @rules << rule
   end
 
   def calculate(*input_values)

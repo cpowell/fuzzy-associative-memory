@@ -6,20 +6,20 @@
 # You can redistribute and/or modify this software only in accordance with
 # the terms found in the "LICENSE" file included with the library.
 #
-class FuzzyAssociativeMemory::FuzzyLinguisticVariable
-  attr_accessor :fuzzy_sets
+class FuzzyAssociativeMemory::LinguisticVariable
+  attr_accessor :sets
   attr_reader :name
 
   def initialize(name)
     @name       = name
-    @fuzzy_sets = []
+    @sets = []
   end
 
-  def add_set(fuzzy_set)
-    @fuzzy_sets << fuzzy_set
+  def add_set(set)
+    @sets << set
   end
 
   def [](n)
-    @fuzzy_sets[n]
+    @sets[n]
   end
 end

@@ -6,7 +6,7 @@
 # You can redistribute and/or modify this software only in accordance with
 # the terms found in the "LICENSE" file included with the library.
 #
-require 'fuzzy_associative_memory/fuzzy_set'
+require 'fuzzy_associative_memory/set'
 class FuzzyAssociativeMemory::Trapezoid < FuzzyAssociativeMemory::FuzzySet
 
   attr_reader :left, :top_left, :top_right, :right, :height
