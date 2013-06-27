@@ -6,7 +6,7 @@
 # You can redistribute and/or modify this software only in accordance with
 # the terms found in the "LICENSE" file included with the library.
 #
-class FuzzySet
+class FuzzyAssociativeMemory::FuzzySet
 
   # mu (named for the symbol) is the 'membership function', sometimes known as
   # the 'degree of fit' or the 'degree of membership'. This computed value

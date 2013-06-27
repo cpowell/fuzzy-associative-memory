@@ -6,10 +6,8 @@
 # You can redistribute and/or modify this software only in accordance with
 # the terms found in the "LICENSE" file included with the library.
 #
-require 'lib/fuzzy_set'
-require 'lib/trapezoid'
-
-class Triangle < FuzzySet
+require 'fuzzy_associative_memory/set'
+class FuzzyAssociativeMemory::Triangle < FuzzyAssociativeMemory::FuzzySet
 
   attr_reader :left, :center, :right, :height
 
@@ -52,7 +50,7 @@ class Triangle < FuzzySet
     top_right = @right - (clip_height * (@right - @center))
     right     = @right
 
-    Trapezoid.new(left, top_left, top_right, right, clip_height)
+    FuzzyAssociativeMemory::Trapezoid.new(left, top_left, top_right, right, clip_height)
   end
 
   def to_s
