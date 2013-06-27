@@ -45,6 +45,22 @@ To do (in descending importance, roughly):
 * Hedges ('very' and 'fairly')
 * Additional examples
 
+## Gem installation
+
+I recommend you clone the Git repository and browse the examples and source code to fully understand how FAMs work.
+
+But if / when you want to use this in your own project, the easiest way to do so is via the Gem:
+```
+gem install fuzzy_associative_memory
+```
+
+Then in your code:
+```
+require 'fuzzy_associative_memory'
+```
+
+The gem is fully namespaced to prevent collisions. See the examples for usage details.
+
 ## Included examples
 
 The `bin` directory contains the following examples:
