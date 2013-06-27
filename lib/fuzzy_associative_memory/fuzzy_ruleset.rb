@@ -7,9 +7,7 @@
 # You can redistribute and/or modify this software only in accordance with
 # the terms found in the "LICENSE" file included with the library.
 #
-require 'pp'
-
-class FuzzyRuleset
+class FuzzyAssociativeMemory::FuzzyRuleset
   attr_accessor :rules
   attr_reader :name
   attr_reader :implication

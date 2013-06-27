@@ -6,9 +6,8 @@
 # You can redistribute and/or modify this software only in accordance with
 # the terms found in the "LICENSE" file included with the library.
 #
-require 'lib/fuzzy_set'
-
-class Trapezoid < FuzzySet
+require 'fuzzy_associative_memory/fuzzy_set'
+class FuzzyAssociativeMemory::Trapezoid < FuzzyAssociativeMemory::FuzzySet
 
   attr_reader :left, :top_left, :top_right, :right, :height
 
@@ -61,7 +60,7 @@ class Trapezoid < FuzzySet
     top_right = @right - (clip_height * (@right - @top_right))
     right     = @right
 
-    Trapezoid.new(left, top_left, top_right, right, clip_height)
+    FuzzyAssociativeMemory::Trapezoid.new(left, top_left, top_right, right, clip_height)
   end
 
   def to_s

@@ -7,7 +7,7 @@
 # You can redistribute and/or modify this software only in accordance with
 # the terms found in the "LICENSE" file included with the library.
 #
-class FuzzyRule
+class FuzzyAssociativeMemory::FuzzyRule
   attr_reader :antecedents, :consequent, :boolean
 
   # Marries an input fuzzy set and an output fuzzy set in an if-then

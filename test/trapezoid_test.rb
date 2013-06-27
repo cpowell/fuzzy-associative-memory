@@ -1,13 +1,14 @@
 gem 'minitest'
 require 'minitest/autorun'
 
-require "lib/trapezoid.rb"
+$:.push File.expand_path('../../lib/', __FILE__)
+require 'fuzzy_associative_memory'
 
 # ruby ./test/trapezoid_test.rb
 
 class TrapezoidTest < MiniTest::Unit::TestCase
   def setup
-    @t = Trapezoid.new(7, 10, 13, 16)
+    @t = FuzzyAssociativeMemory::Trapezoid.new(7, 10, 13, 16)
   end
 
   def test_dom_is_zero_outside_left_bound
@@ -43,37 +44,37 @@ class TrapezoidTest < MiniTest::Unit::TestCase
   end
 
   def test_dom_is_correct_at_three_fifths_offset
-    t = Trapezoid.new(0, 5, 10, 15)
+    t = FuzzyAssociativeMemory::Trapezoid.new(0, 5, 10, 15)
     assert_equal(0.6, t.mu(3.0))
   end
 
   def test_dom_is_correct_at_seven_tenths_offset
-    t = Trapezoid.new(0, 5, 10, 15)
+    t = FuzzyAssociativeMemory::Trapezoid.new(0, 5, 10, 15)
     assert_equal(0.6, t.mu(12.0))
   end
 
   def test_centroid_calculation_1
-    t = Trapezoid.new(0, 20, 50, 50)
+    t = FuzzyAssociativeMemory::Trapezoid.new(0, 20, 50, 50)
     assert_equal(29.583333333333332, t.centroid_x)
   end
 
   def test_centroid_calculation_2
-    t = Trapezoid.new(0, 10, 20, 30)
+    t = FuzzyAssociativeMemory::Trapezoid.new(0, 10, 20, 30)
     assert_equal(15.0, t.centroid_x)
   end
 
   def test_centroid_calculation_when_not_starting_at_zero
-    t = Trapezoid.new(50, 80, 100, 100)
+    t = FuzzyAssociativeMemory::Trapezoid.new(50, 80, 100, 100)
     assert_equal(81.42857142857143, t.centroid_x)
   end
 
   def test_dom_1
-    t = Trapezoid.new(20, 30, 40, 50)
+    t = FuzzyAssociativeMemory::Trapezoid.new(20, 30, 40, 50)
     assert_equal(0.9, t.mu(41))
   end
 
   def test_mamdani_clipping_1
-    t = Trapezoid.new(0, 30, 100, 110)
+    t = FuzzyAssociativeMemory::Trapezoid.new(0, 30, 100, 110)
     t2 = t.mamdani(0.83)
     assert_equal(0, t2.left)
     assert_equal(24.9, t2.top_left)
@@ -83,7 +84,7 @@ class TrapezoidTest < MiniTest::Unit::TestCase
   end
 
   def test_mamdani_clipping_2
-    t = Trapezoid.new(50, 80, 150, 160)
+    t = FuzzyAssociativeMemory::Trapezoid.new(50, 80, 150, 160)
     t2 = t.mamdani(0.83)
     assert_equal(50, t2.left)
     assert_equal(74.9, t2.top_left)
