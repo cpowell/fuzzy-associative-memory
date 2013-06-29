@@ -20,6 +20,10 @@ class FuzzyAssociativeMemory::Rule
   #   - +natural_language+ -> a rule description (your own words), useful in output
   #
   def initialize(antecedent_array, boolean, consequent, natural_language=nil)
+    if antecedent_array.is_a? String
+      raise ArgumentError, "As of v1.0.1, Rule::initialize() has changed. Please see the code and CHANGELOG. (Sorry for the trouble.)"
+    end
+
     raise ArgumentError, "Antecedent array must contain at least one fuzzy set" unless antecedent_array.size > 0
     raise ArgumentError, "Consequent must be provided" unless consequent
 
