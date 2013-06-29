@@ -49,11 +49,11 @@ fan_speed.sets = [stop, slow, medium, fast, blast]
 # "If the temperature is cool, the fan motor speed should be slow."
 system = FuzzyAssociativeMemory::Ruleset.new("HVAC control", :larsen)
 
-rule_1 = FuzzyAssociativeMemory::Rule.new('If room is cold, the fan motor stops',           [cold],       nil, stop)
-rule_2 = FuzzyAssociativeMemory::Rule.new('If room is cool, the fan motor is slow',         [cool],       nil, slow)
-rule_3 = FuzzyAssociativeMemory::Rule.new('If room is just right, the fan motor is medium', [just_right], nil, medium)
-rule_4 = FuzzyAssociativeMemory::Rule.new('If room is warm, the fan motor speeds up',       [warm],       nil, fast)
-rule_5 = FuzzyAssociativeMemory::Rule.new('If room is hot, the fan motor runs full-blast',  [hot],        nil, blast)
+rule_1 = FuzzyAssociativeMemory::Rule.new([cold],       nil, stop   , 'If room is cold, the fan motor stops' )
+rule_2 = FuzzyAssociativeMemory::Rule.new([cool],       nil, slow   , 'If room is cool, the fan motor is slow' )
+rule_3 = FuzzyAssociativeMemory::Rule.new([just_right], nil, medium , 'If room is just right, the fan motor is medium' )
+rule_4 = FuzzyAssociativeMemory::Rule.new([warm],       nil, fast   , 'If room is warm, the fan motor speeds up' )
+rule_5 = FuzzyAssociativeMemory::Rule.new([hot],        nil, blast  , 'If room is hot, the fan motor runs full-blast' )
 
 system.rules = [rule_1, rule_2, rule_3, rule_4, rule_5]
 

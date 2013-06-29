@@ -50,25 +50,25 @@ rocket_ammo_status.sets = [rkt_ammo_low, rkt_ammo_okay, rkt_ammo_loads]
 # fan speed' variable is the  assemblage of all our fuzzy output sets.
 desirability = FuzzyAssociativeMemory::LinguisticVariable.new("weapon desirability")
 
-undes   = FuzzyAssociativeMemory::Trapezoid.new(0, 0, 20, 50)
-desir   = FuzzyAssociativeMemory::Triangle.new(30, 50, 70)
-v_desir = FuzzyAssociativeMemory::Trapezoid.new(50, 80, 100, 100)
+undesirable    = FuzzyAssociativeMemory::Trapezoid.new(0, 0, 20, 50)
+desirable      = FuzzyAssociativeMemory::Triangle.new(30, 50, 70)
+very_desirable = FuzzyAssociativeMemory::Trapezoid.new(50, 80, 100, 100)
 
-desirability.sets = [undes, desir, v_desir]
+desirability.sets = [undesirable, desirable, very_desirable]
 
 # Natural-language marriage of the inputs to the outputs, e.g.
 # "If the temperature is cool, the fan motor speed should be slow."
 rkt_ruleset = FuzzyAssociativeMemory::Ruleset.new("Rocket launcher desirability", implication)
 
-rule_1 = FuzzyAssociativeMemory::Rule.new('If target is far and I have loads of rocket ammo, rocket launcher is desirable', [tgt_far, rkt_ammo_loads], :and, desir)
-rule_2 = FuzzyAssociativeMemory::Rule.new('If target is far and I have some rocket ammo, rocket launcher is undesirable', [tgt_far, rkt_ammo_okay], :and, undes)
-rule_3 = FuzzyAssociativeMemory::Rule.new('If target is far and I have low rocket ammo, rocket launcher is undesirable', [tgt_far, rkt_ammo_low], :and, undes)
-rule_4 = FuzzyAssociativeMemory::Rule.new('If target is medium-distance and I have loads of rocket ammo, rocket launcher is very desirable', [tgt_medium, rkt_ammo_loads], :and, v_desir)
-rule_5 = FuzzyAssociativeMemory::Rule.new('If target is medium-distance and I have some rocket ammo, rocket launcher is very desirable', [tgt_medium, rkt_ammo_okay], :and, v_desir)
-rule_6 = FuzzyAssociativeMemory::Rule.new('If target is medium-distance and I have low rocket ammo, rocket launcher is desirable', [tgt_medium, rkt_ammo_low], :and, desir)
-rule_7 = FuzzyAssociativeMemory::Rule.new('If target is close and I have loads of rocket ammo, rocket launcher is undesirable', [tgt_close, rkt_ammo_loads], :and, undes)
-rule_8 = FuzzyAssociativeMemory::Rule.new('If target is close and I have some rocket ammo, rocket launcher is undesirable', [tgt_close, rkt_ammo_okay], :and, undes)
-rule_9 = FuzzyAssociativeMemory::Rule.new('If target is close and I have low rocket ammo, rocket launcher is undesirable', [tgt_close, rkt_ammo_low], :and, undes)
+rule_1 = FuzzyAssociativeMemory::Rule.new([tgt_far, rkt_ammo_loads], :and, desirable, 'If target is far and I have loads of rocket ammo, rocket launcher is desirable')
+rule_2 = FuzzyAssociativeMemory::Rule.new([tgt_far, rkt_ammo_okay], :and, undesirable, 'If target is far and I have some rocket ammo, rocket launcher is undesirable')
+rule_3 = FuzzyAssociativeMemory::Rule.new([tgt_far, rkt_ammo_low], :and, undesirable, 'If target is far and I have low rocket ammo, rocket launcher is undesirable')
+rule_4 = FuzzyAssociativeMemory::Rule.new([tgt_medium, rkt_ammo_loads], :and, very_desirable, 'If target is medium-distance and I have loads of rocket ammo, rocket launcher is very desirable')
+rule_5 = FuzzyAssociativeMemory::Rule.new([tgt_medium, rkt_ammo_okay], :and, very_desirable, 'If target is medium-distance and I have some rocket ammo, rocket launcher is very desirable')
+rule_6 = FuzzyAssociativeMemory::Rule.new([tgt_medium, rkt_ammo_low], :and, desirable, 'If target is medium-distance and I have low rocket ammo, rocket launcher is desirable')
+rule_7 = FuzzyAssociativeMemory::Rule.new([tgt_close, rkt_ammo_loads], :and, undesirable, 'If target is close and I have loads of rocket ammo, rocket launcher is undesirable')
+rule_8 = FuzzyAssociativeMemory::Rule.new([tgt_close, rkt_ammo_okay], :and, undesirable, 'If target is close and I have some rocket ammo, rocket launcher is undesirable')
+rule_9 = FuzzyAssociativeMemory::Rule.new([tgt_close, rkt_ammo_low], :and, undesirable, 'If target is close and I have low rocket ammo, rocket launcher is undesirable')
 
 rkt_ruleset.rules = [rule_1, rule_2, rule_3, rule_4, rule_5, rule_6, rule_7, rule_8, rule_9]
 
@@ -91,15 +91,15 @@ gun_ammo_loads = FuzzyAssociativeMemory::Trapezoid.new(10, 30, 40, 40)
 shotgun_ammo_status.sets = [gun_ammo_low, gun_ammo_okay, gun_ammo_loads]
 
 gun_ruleset = FuzzyAssociativeMemory::Ruleset.new("Shotgun desirability", implication)
-rule_1 = FuzzyAssociativeMemory::Rule.new('If target is far and I have loads of shotgun ammo, shotgun is undesirable', [tgt_far, gun_ammo_loads], :and, undes)
-rule_2 = FuzzyAssociativeMemory::Rule.new('If target is far and I have some shotgun ammo, shotgun is undesirable', [tgt_far, gun_ammo_okay], :and, undes)
-rule_3 = FuzzyAssociativeMemory::Rule.new('If target is far and I have low shotgun ammo, shotgun is undesirable', [tgt_far, gun_ammo_low], :and, undes)
-rule_4 = FuzzyAssociativeMemory::Rule.new('If target is medium-distance and I have loads of shotgun ammo, shotgun is desirable', [tgt_medium, gun_ammo_loads], :and, desir)
-rule_5 = FuzzyAssociativeMemory::Rule.new('If target is medium-distance and I have some shotgun ammo, shotgun is desirable', [tgt_medium, gun_ammo_okay], :and, desir)
-rule_6 = FuzzyAssociativeMemory::Rule.new('If target is medium-distance and I have low shotgun ammo, shotgun is undesirable', [tgt_medium, gun_ammo_low], :and, undes)
-rule_7 = FuzzyAssociativeMemory::Rule.new('If target is close and I have loads of shotgun ammo, shotgun is very desirable', [tgt_close, gun_ammo_loads], :and, v_desir)
-rule_8 = FuzzyAssociativeMemory::Rule.new('If target is close and I have some shotgun ammo, shotgun is very desirable', [tgt_close, gun_ammo_okay], :and, v_desir)
-rule_9 = FuzzyAssociativeMemory::Rule.new('If target is close and I have low shotgun ammo, shotgun is very desirable', [tgt_close, gun_ammo_low], :and, v_desir)
+rule_1 = FuzzyAssociativeMemory::Rule.new([tgt_far, gun_ammo_loads], :and, undesirable, 'If target is far and I have loads of shotgun ammo, shotgun is undesirable')
+rule_2 = FuzzyAssociativeMemory::Rule.new([tgt_far, gun_ammo_okay], :and, undesirable, 'If target is far and I have some shotgun ammo, shotgun is undesirable')
+rule_3 = FuzzyAssociativeMemory::Rule.new([tgt_far, gun_ammo_low], :and, undesirable, 'If target is far and I have low shotgun ammo, shotgun is undesirable')
+rule_4 = FuzzyAssociativeMemory::Rule.new([tgt_medium, gun_ammo_loads], :and, desirable, 'If target is medium-distance and I have loads of shotgun ammo, shotgun is desirable')
+rule_5 = FuzzyAssociativeMemory::Rule.new([tgt_medium, gun_ammo_okay], :and, desirable, 'If target is medium-distance and I have some shotgun ammo, shotgun is desirable')
+rule_6 = FuzzyAssociativeMemory::Rule.new([tgt_medium, gun_ammo_low], :and, undesirable, 'If target is medium-distance and I have low shotgun ammo, shotgun is undesirable')
+rule_7 = FuzzyAssociativeMemory::Rule.new([tgt_close, gun_ammo_loads], :and, very_desirable, 'If target is close and I have loads of shotgun ammo, shotgun is very desirable')
+rule_8 = FuzzyAssociativeMemory::Rule.new([tgt_close, gun_ammo_okay], :and, very_desirable, 'If target is close and I have some shotgun ammo, shotgun is very desirable')
+rule_9 = FuzzyAssociativeMemory::Rule.new([tgt_close, gun_ammo_low], :and, very_desirable, 'If target is close and I have low shotgun ammo, shotgun is very desirable')
 gun_ruleset.rules = [rule_1, rule_2, rule_3, rule_4, rule_5, rule_6, rule_7, rule_8, rule_9]
 
 sa = 12
