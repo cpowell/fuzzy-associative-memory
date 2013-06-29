@@ -44,6 +44,8 @@ To do (in descending importance, roughly):
 * Other shapes for fuzzy sets
 * Hedges ('very' and 'fairly')
 * Additional examples
+ 
+Watch the [changelog](http://github.com/cpowell/fuzzy-associative-memory/blob/master/CHANGELOG.md) for news.
 
 ## Gem installation
 
