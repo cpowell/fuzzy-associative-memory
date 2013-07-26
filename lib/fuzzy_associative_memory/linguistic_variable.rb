@@ -83,7 +83,7 @@ class FuzzyAssociativeMemory::LinguisticVariable
       IO.popen("gnuplot", "w") do |io|
         io.puts commands
       end
-      puts "Plot saved in #{fn}"
+      #puts "Plot saved in #{fn}"
 
     rescue StandardError => e
       puts "Unable to run Gnuplot because #{e.message}"
