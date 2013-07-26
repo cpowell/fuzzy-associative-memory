@@ -34,6 +34,8 @@ tgt_medium = FuzzyAssociativeMemory::Triangle.new(25, 150, 300)
 tgt_far    = FuzzyAssociativeMemory::Trapezoid.new(150, 300, 500, 650)
 
 target_dist.sets = [tgt_close, tgt_medium, tgt_far]
+# Comment out if you don't have Gnuplot installed:
+target_dist.gnuplot
 
 # Now for the second input (or antecedent): the amount of ammo left for this
 # particular weapon.
@@ -44,6 +46,8 @@ rkt_ammo_okay  = FuzzyAssociativeMemory::Triangle.new(0, 10, 30)
 rkt_ammo_loads = FuzzyAssociativeMemory::Trapezoid.new(10, 30, 40, 40)
 
 rocket_ammo_status.sets = [rkt_ammo_low, rkt_ammo_okay, rkt_ammo_loads]
+# Comment out if you don't have Gnuplot installed:
+rocket_ammo_status.gnuplot
 
 # The output side -- the consequent -- expressed as a number of fuzzy sets,
 # with each set representing a natural-language description. The 'resultant
@@ -55,6 +59,8 @@ desirable      = FuzzyAssociativeMemory::Triangle.new(30, 50, 70)
 very_desirable = FuzzyAssociativeMemory::Trapezoid.new(50, 80, 100, 100)
 
 desirability.sets = [undesirable, desirable, very_desirable]
+# Comment out if you don't have Gnuplot installed:
+desirability.gnuplot
 
 # Natural-language marriage of the inputs to the outputs, e.g.
 # "If the temperature is cool, the fan motor speed should be slow."

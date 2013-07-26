@@ -31,6 +31,8 @@ warm       = FuzzyAssociativeMemory::Triangle.new(65, 75, 85)  # 20 deg wide
 hot        = FuzzyAssociativeMemory::Trapezoid.new(80, 90, 90, 90) # 20 deg wide
 
 temperature_in.sets = [cold, cool, just_right, warm, hot]
+# Comment out if you don't have Gnuplot installed:
+temperature_in.gnuplot
 
 # The output side -- the consequent -- expressed as a number of fuzzy sets,
 # with each set representing a natural-language description. The 'resultant
@@ -44,6 +46,8 @@ fast   = FuzzyAssociativeMemory::Triangle.new(50, 70, 90)   # 40 CFM wide
 blast  = FuzzyAssociativeMemory::Triangle.new(70, 100, 130) # 60 CFM wide
 
 fan_speed.sets = [stop, slow, medium, fast, blast]
+# Comment out if you don't have Gnuplot installed:
+fan_speed.gnuplot
 
 # Natural-language marriage of the inputs to the outputs, e.g.
 # "If the temperature is cool, the fan motor speed should be slow."
