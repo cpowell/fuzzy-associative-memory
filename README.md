@@ -35,7 +35,7 @@ When defining these rules, it helps to imagine interviewing a bona fide expert i
 Fuzzy Linguistic Variables can be hard to visualize, especially when they get complex and include triangles and trapezoids in combination.
 To answer that, this software can now (optionally) shell out to your installed Gnuplot and create PNG or SVG renderings of your FLVs. Here's an example:
 
-![flv example](http://raw.github.com/cpowell/fuzzy-associative-memory/master/bin/plot%20of%20rocket%20launcher%20ammo%20quantity.png)
+![flv example](https://raw.github.com/cpowell/fuzzy-associative-memory/master/bin/plot%20of%20rocket%20launcher%20ammo%20quantity.png)
 
 ## Project status
 
