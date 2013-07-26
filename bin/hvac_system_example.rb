@@ -32,7 +32,7 @@ hot        = FuzzyAssociativeMemory::Trapezoid.new(80, 90, 90, 90) # 20 deg wide
 
 temperature_in.sets = [cold, cool, just_right, warm, hot]
 # Comment out if you don't have Gnuplot installed:
-temperature_in.gnuplot
+temperature_in.gnuplot({:logarithmic_x=>false})
 
 # The output side -- the consequent -- expressed as a number of fuzzy sets,
 # with each set representing a natural-language description. The 'resultant
@@ -47,7 +47,7 @@ blast  = FuzzyAssociativeMemory::Triangle.new(70, 100, 130) # 60 CFM wide
 
 fan_speed.sets = [stop, slow, medium, fast, blast]
 # Comment out if you don't have Gnuplot installed:
-fan_speed.gnuplot
+fan_speed.gnuplot({:logarithmic_x=>false})
 
 # Natural-language marriage of the inputs to the outputs, e.g.
 # "If the temperature is cool, the fan motor speed should be slow."

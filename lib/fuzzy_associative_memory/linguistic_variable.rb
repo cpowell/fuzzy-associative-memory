@@ -21,8 +21,18 @@ class FuzzyAssociativeMemory::LinguisticVariable
     @sets << set
   end
 
-  def gnuplot
+  # Shell out to your system's installed Gnuplot binary to create a graphical depiction
+  # of this FLV.
+  #
+  # * *Args*    :
+  #   - +options+ -> a hash of options; see below
+  #
+  def gnuplot(options = {})
     return if @sets.empty?
+
+    opts = {
+      :logarithmic_x => false # Default to non-log X axis
+    }.merge(options)
 
     datafile = Tempfile.new('fam_')
     begin
@@ -55,20 +65,25 @@ class FuzzyAssociativeMemory::LinguisticVariable
 
       # set term dumb
       commands = %Q(
-        set terminal svg
-        set autoscale
+        set terminal svg size 1024,400
         set xlabel 'value'
         set ylabel 'membership'
-        set xtic auto
-        set ytic auto
+        set xtics autofreq
+        set ytics autofreq
         set output "#{fn}"
         set title "Fuzzy sets for #{name}"
         set mytics 4
         set mxtics 4
-        set size ratio 0.35
-        set grid x y
-        set xr [#{min}:#{max}]
+        set size ratio 0.25
+        set grid mxtics xtics ytics
+
       )
+
+      if opts[:logarithmic_x]
+        commands += "set xr [[#{[min, 1].max}:#{max}]\nset logscale x\n"
+      else
+        commands += "set xr [#{min}:#{max}]\n"
+      end
 
       #         plot "#{datafile.path}" using 2:3 notitle with linespoints lw 2
 
