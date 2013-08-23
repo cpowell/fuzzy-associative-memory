@@ -15,7 +15,7 @@ class FuzzyAssociativeMemory::Rule
   #
   # * *Args*    :
   #   - +antecedent_array+ -> an array of one or more input fuzzy sets
-  #   - +boolean+ -> term to join the antecedents, may be: nil, 'AND', 'OR'
+  #   - +boolean+ -> term to join the antecedents, may be: nil, :and, :or
   #   - +consequent+ -> the output fuzzy set
   #   - +natural_language+ -> a rule description (your own words), useful in output
   #
@@ -28,9 +28,9 @@ class FuzzyAssociativeMemory::Rule
     raise ArgumentError, "Consequent must be provided" unless consequent
 
     if antecedent_array.size > 1
-      raise ArgumentError, "boolean must be sym :and or :or" unless [:and, :or].include? boolean
+      raise ArgumentError, "boolean must be sym :and or :or for multi-element antecedent arrays" unless [:and, :or].include? boolean
     else
-      raise ArgumentError, "boolean must be nil" unless boolean.nil?
+      raise ArgumentError, "boolean must be nil for single-element antecedent arrays" unless boolean.nil?
     end
 
     @natural_language = natural_language
@@ -48,8 +48,12 @@ class FuzzyAssociativeMemory::Rule
   #   - the degree of fit for this rule
   #
   def fire(value_array)
-    mus = Array.new
+    raise ArgumentError, "value array passed to Rule::fire() cannot be nil" if value_array.nil?
+    raise ArgumentError, "value array must be an collection of inputs but is a #{value_array.class}" unless value_array.is_a? Enumerable
+    raise ArgumentError, "value array passed to Rule::fire() cannot be empty" if value_array.empty?
 
+    mus = Array.new
+    # puts value_array.join(", ")
     @antecedents.each_with_index do |antecedent, index|
       mus[index] = antecedent.mu(value_array[index])
     end
