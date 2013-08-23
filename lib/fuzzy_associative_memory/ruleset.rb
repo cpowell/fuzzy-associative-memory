@@ -42,6 +42,7 @@ class FuzzyAssociativeMemory::Ruleset
       if @consequent_mus.has_key?(cons)
         if mu > @consequent_mus[cons]
           @consequent_mus[cons] = mu
+        end
       else
         @consequent_mus[cons] = mu
       end
@@ -72,7 +73,7 @@ class FuzzyAssociativeMemory::Ruleset
     numerator=0
     denominator=0
 
-    @consequents each do |cons|
+    @consequents.each do |cons|
       numerator += cons.centroid_x * cons.height
       denominator += cons.height
     end
