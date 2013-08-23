@@ -25,7 +25,6 @@ class FuzzyAssociativeMemory::Ruleset
 
   def calculate(*input_values)
     @consequent_mus   = {}
-    @kept_consequents = {}
     @consequents      = []
 
     puts ">>> Firing all rules..." if $verbosity
@@ -35,26 +34,24 @@ class FuzzyAssociativeMemory::Ruleset
       # have been fired more than once and we'll need that knowledge in a
       # moment...
       cons, mu = rule.fire(input_values)
-      if @consequent_mus.has_key?(cons)
-        @consequent_mus[cons] << mu
-      else
-        @consequent_mus[cons] = [mu]
-      end
-    end
 
-    # Since any given consequent may have been activated more than once, we
-    # need to get just a single µ value out -- we only care about the 'best'
-    # µ. A popular way of doing so is to OR the values together, i.e. keep the
-    # maximum µ value and discard the others.
-    @consequent_mus.each do |cons, mu_array|
-      @kept_consequents[cons] = mu_array.max
+      # Since any given consequent may have been activated more than once, we
+      # need to get just a single µ value out -- we only care about the 'best'
+      # µ. A popular way of doing so is to OR the values together, i.e. keep the
+      # maximum µ value and discard the others.
+      if @consequent_mus.has_key?(cons)
+        if mu > @consequent_mus[cons]
+          @consequent_mus[cons] = mu
+      else
+        @consequent_mus[cons] = mu
+      end
     end
 
     # Using each µ value, alter the consequent fuzzy set's polgyon. This is
     # called implication, and 'weights' the consequents properly. There are
     # several common ways of doing it, such as Larsen (scaling) and Mamdani
     # (clipping).
-    @kept_consequents.each do |cons, mu|
+    @consequent_mus.each do |cons, mu|
       case @implication
       when :mamdani
         @consequents << cons.mamdani(mu)
@@ -72,8 +69,18 @@ class FuzzyAssociativeMemory::Ruleset
     # of Maxima" summation mechanism. MaxAv is defined as:
     # (∑ representative value * height) / (∑ height) for all output sets
     # where 'representative value' is shape-dependent.
-    numerator_terms   = @consequents.map { |set| set.centroid_x * set.height }
-    denominator_terms = @consequents.map { |set| set.height }
-    numerator_terms.inject{|sum,x| sum + x } / denominator_terms.inject{|sum,x| sum + x }
+    numerator=0
+    denominator=0
+
+    @consequents each do |cons|
+      numerator += cons.centroid_x * cons.height
+      denominator += cons.height
+    end
+
+    return numerator/denominator
+
+    # numerator_terms   = @consequents.map { |set| set.centroid_x * set.height }
+    # denominator_terms = @consequents.map { |set| set.height }
+    # numerator_terms.inject{|sum,x| sum + x } / denominator_terms.inject{|sum,x| sum + x }
   end
 end
