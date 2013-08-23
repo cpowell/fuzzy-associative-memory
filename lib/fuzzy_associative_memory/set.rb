@@ -31,4 +31,8 @@ class FuzzyAssociativeMemory::FuzzySet
     raise "Subclass must define!"
   end
 
+  def mamdani(ratio)
+    raise "Subclass must define!"
+  end
+
 end
