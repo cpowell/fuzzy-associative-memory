@@ -21,6 +21,7 @@ class FuzzyAssociativeMemory::Triangle < FuzzyAssociativeMemory::FuzzySet
   end
 
   def mu(value)
+    raise ArgumentError, "value passed to Triangle::mu() cannot be nil" if value.nil?
     if value < @left || value > @right
       0.0
     else
