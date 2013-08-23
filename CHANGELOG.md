@@ -1,6 +1,11 @@
 # Changelog for fuzzy-associative-memory
 
-## 1.1, 26 July 2013
+## 1.2.0, 23 August 2013
+* RuleSet::calculate() gets a refactor / efficiency rewrite
+* Argument sanity-checking
+* Improvements to Gnuplot visualization (logarithmic axis, return filename to caller)
+
+## 1.1.0, 26 July 2013
 * Fuzzy Linguistic Variables are hard to visualize, especially when they get complex. To remedy that, you can now instruct an FLV to shell out to your installed Gnuplot and plot itself. The images are saved in your system's tmpdir.
 
 ## 1.0.1, 28 June 2013
