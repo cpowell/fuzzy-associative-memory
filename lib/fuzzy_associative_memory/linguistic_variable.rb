@@ -107,6 +107,7 @@ class FuzzyAssociativeMemory::LinguisticVariable
       datafile.unlink
     end
 
+    return fn if defined?(fn)
   end
 
   def [](n)
