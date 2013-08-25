@@ -29,8 +29,8 @@ class FuzzyAssociativeMemory::Ruleset
     @consequents.clear
     @consequent_mus.clear
 
-    puts ">>> Firing all rules..." if $verbosity
-    @rules.each_with_index do |rule, rule_num|
+    # puts ">>> Firing all rules..." if $verbosity
+    @rules.each do |rule|
       # Fire each rule to determine the µ value (degree of fit).
       # Gather the µ vals by consequent, since each consequent may in fact
       # have been fired more than once and we'll need that knowledge in a
@@ -41,11 +41,8 @@ class FuzzyAssociativeMemory::Ruleset
       # need to get just a single µ value out -- we only care about the 'best'
       # µ. A popular way of doing so is to OR the values together, i.e. keep the
       # maximum µ value and discard the others.
-      if @consequent_mus.has_key?(cons)
-        if mu > @consequent_mus[cons]
-          @consequent_mus[cons] = mu
-        end
-      else
+      curr = @consequent_mus[cons]
+      if curr.nil? || mu > curr
         @consequent_mus[cons] = mu
       end
     end

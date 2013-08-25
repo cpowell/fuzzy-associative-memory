@@ -37,6 +37,7 @@ class FuzzyAssociativeMemory::Rule
     @antecedents      = antecedent_array
     @consequent       = consequent
     @boolean          = boolean
+    @mus = Array.new
   end
 
   # Triggers the rule. The antecedent(s) is/are fired with the supplied inputs
@@ -48,24 +49,24 @@ class FuzzyAssociativeMemory::Rule
   #   - the degree of fit for this rule
   #
   def fire(value_array)
-    raise ArgumentError, "value array passed to Rule::fire() cannot be nil" if value_array.nil?
-    raise ArgumentError, "value array must be an collection of inputs but is a #{value_array.class}" unless value_array.is_a? Enumerable
-    raise ArgumentError, "value array passed to Rule::fire() cannot be empty" if value_array.empty?
+    # raise ArgumentError, "value array passed to Rule::fire() cannot be nil" if value_array.nil?
+    # raise ArgumentError, "value array must be an collection of inputs but is a #{value_array.class}" unless value_array.is_a? Enumerable
+    # raise ArgumentError, "value array passed to Rule::fire() cannot be empty" if value_array.empty?
 
-    mus = Array.new
-    # puts value_array.join(", ")
-    @antecedents.each_with_index do |antecedent, index|
-      mus[index] = antecedent.mu(value_array[index])
+    @mus.clear
+
+    for i in 0..@antecedents.size-1
+      @mus << @antecedents[i].mu(value_array[i])
     end
 
     if @boolean==:and
-      mu = mus.min # AND / Intersection == minimum
+      return [@consequent, @mus.min] # AND / Intersection == minimum
     else
-      mu = mus.max # OR / Union == maximum
+      return [@consequent, @mus.max] # OR / Union == maximum
     end
 
-    puts "Fired rule '#{@natural_language}': µ choices are [#{mus.join(',')}], final µ is #{mu}" if $verbosity
-    [@consequent, mu]
+    # puts "Fired rule '#{@natural_language}': µ choices are [#{@mus.join(',')}], final µ is #{mu}" if $verbosity
+    # [@consequent, mu]
   end
 
 end
