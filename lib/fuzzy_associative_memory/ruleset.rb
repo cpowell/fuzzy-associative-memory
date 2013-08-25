@@ -17,6 +17,8 @@ class FuzzyAssociativeMemory::Ruleset
     @name  = name
     @rules = []
     @implication = implication_mechanism
+    @consequent_mus   = {}
+    @consequents      = []
   end
 
   def add_rule(rule)
@@ -24,8 +26,8 @@ class FuzzyAssociativeMemory::Ruleset
   end
 
   def calculate(*input_values)
-    @consequent_mus   = {}
-    @consequents      = []
+    @consequents.clear
+    @consequent_mus.clear
 
     puts ">>> Firing all rules..." if $verbosity
     @rules.each_with_index do |rule, rule_num|
