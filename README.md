@@ -83,3 +83,7 @@ Plots of the examples' fuzzy linguistic variables have been pre-rendered and are
 * "Fuzzy Logic: The Revolutionary Computer Technology that is Changing the World" by Daniel McNeill & Paul Freiberger [(Amazon link)](http://www.amazon.com/Fuzzy-Logic-Revolutionary-Computer-Technology/dp/0671875353/)
 * "Fuzzy Logic in Decision Making and Signal Processing" by Sujit Nath Pant & Keith E. Holbert [(Link)](http://enpub.fulton.asu.edu/powerzone/fuzzylogic/index.htm)
 * "Programming Game AI by Example" by Mat Buckland [(Amazon link)](http://www.amazon.com/Programming-Game-Example-Mat-Buckland/dp/1556220782)
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/cpowell/fuzzy-associative-memory/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
