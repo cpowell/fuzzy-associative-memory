@@ -18,7 +18,6 @@ class FuzzyAssociativeMemory::Ruleset
     @rules = []
     @implication = implication_mechanism
     @consequent_mus   = {}
-    @consequents      = []
   end
 
   def add_rule(rule)
@@ -26,11 +25,8 @@ class FuzzyAssociativeMemory::Ruleset
   end
 
   def calculate(*input_values)
-    @consequents.clear
-    @consequent_mus.clear
-
     # puts ">>> Firing all rules..." if $verbosity
-    @rules.each do |rule|
+    for rule in @rules
       # Fire each rule to determine the µ value (degree of fit).
       # Gather the µ vals by consequent, since each consequent may in fact
       # have been fired more than once and we'll need that knowledge in a
@@ -41,8 +37,8 @@ class FuzzyAssociativeMemory::Ruleset
       # need to get just a single µ value out -- we only care about the 'best'
       # µ. A popular way of doing so is to OR the values together, i.e. keep the
       # maximum µ value and discard the others.
-      curr = @consequent_mus[cons]
-      if curr.nil? || mu > curr
+      curr_best = @consequent_mus[cons]
+      if curr_best.nil? || mu > curr_best
         @consequent_mus[cons] = mu
       end
     end
@@ -51,36 +47,33 @@ class FuzzyAssociativeMemory::Ruleset
     # called implication, and 'weights' the consequents properly. There are
     # several common ways of doing it, such as Larsen (scaling) and Mamdani
     # (clipping).
-    @consequent_mus.each do |cons, mu|
-      case @implication
-      when :mamdani
-        @consequents << cons.mamdani(mu)
-      when :larsen
-        @consequents << cons.larsen(mu)
-      else
-        raise RuntimeError, "I must have been passed an unknown implication mechanism: #{@implication}"
-      end
-    end
-
-    # Defuzzify into a discrete & usable value by adding up the weighted
-    # consequents' contributions to the output. Again there are several ways
-    # of doing it, such as computing the centroid of the combined 'mass', or
-    # the 'mean of maximum' of the tallest set(s). Here we use the "Average
-    # of Maxima" summation mechanism. MaxAv is defined as:
-    # (∑ representative value * height) / (∑ height) for all output sets
-    # where 'representative value' is shape-dependent.
     numerator=0
     denominator=0
 
-    @consequents.each do |cons|
-      numerator += cons.centroid_x * cons.height
-      denominator += cons.height
+    @consequent_mus.each do |cons, mu|
+      case @implication
+      when :mamdani
+        tmp = cons.mamdani(mu)
+      when :larsen
+        tmp = cons.larsen(mu)
+      else
+        raise RuntimeError, "I must have been passed an unknown implication mechanism: #{@implication}"
+      end
+
+      # Defuzzify into a discrete & usable value by adding up the weighted
+      # consequents' contributions to the output. Again there are several ways
+      # of doing it, such as computing the centroid of the combined 'mass', or
+      # the 'mean of maximum' of the tallest set(s). Here we use the "Average
+      # of Maxima" summation mechanism. MaxAv is defined as:
+      # (∑ representative value * height) / (∑ height) for all output sets
+      # where 'representative value' is shape-dependent.
+      numerator += tmp.centroid_x * tmp.height
+      denominator += tmp.height
     end
+
+    @consequent_mus.clear
 
     return numerator/denominator
 
-    # numerator_terms   = @consequents.map { |set| set.centroid_x * set.height }
-    # denominator_terms = @consequents.map { |set| set.height }
-    # numerator_terms.inject{|sum,x| sum + x } / denominator_terms.inject{|sum,x| sum + x }
   end
 end
