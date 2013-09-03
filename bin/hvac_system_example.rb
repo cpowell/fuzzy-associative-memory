@@ -1,4 +1,9 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env ruby --server -Xcompile.invokedynamic=true
+#
+# The shebang line, above, should reflect your Ruby.
+# - Vanilla ruby 1.9/2.0 : #!/usr/bin/env ruby
+# - Jruby: #!/usr/bin/env ruby --server
+# - Jruby 1.7 with Java 1.7: #!/usr/bin/env ruby --server -Xcompile.invokedynamic=true
 #
 # Copyright 2013, Prylis Incorporated.
 #
