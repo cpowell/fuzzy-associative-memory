@@ -1,5 +1,8 @@
 # Changelog for fuzzy-associative-memory
 
+## 1.3.1, 2 September 2013
+* Massive performance and efficiency effort. This version of the Gem clocks in at 3.5x the speed of my 1.1 series in synthetic benchmarks. If you use the FAM in a tight loop, this will help a lot.
+
 ## 1.2.0, 23 August 2013
 * RuleSet::calculate() gets a refactor / efficiency rewrite
 * Argument sanity-checking
