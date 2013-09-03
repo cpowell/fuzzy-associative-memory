@@ -13,4 +13,6 @@ Gem::Specification.new do |s|
   s.homepage    = 'http://github.com/cpowell/fuzzy-associative-memory'
   s.license     = 'LGPL'
   s.rdoc_options = ["--main", "README.md"]
+  s.add_development_dependency 'rspec'
+  s.add_development_dependency "rake"
 end
