@@ -30,9 +30,7 @@ class FuzzyAssociativeMemory::Triangle < FuzzyAssociativeMemory::FuzzySet
   end
 
   def centroid_x
-    cx = (@left + @right + @center) / 3.0
-    # cy = @height / 3.0
-    # [cx, cy]
+    (@left + @right + @center) / 3.0
   end
 
   def height=(new_height)

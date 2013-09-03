@@ -37,7 +37,6 @@ class FuzzyAssociativeMemory::Rule
     @antecedents      = antecedent_array
     @consequent       = consequent
     @boolean          = boolean
-    @mus              = Array.new(@antecedents.length)
   end
 
   # Triggers the rule. The antecedent(s) is/are fired with the supplied inputs

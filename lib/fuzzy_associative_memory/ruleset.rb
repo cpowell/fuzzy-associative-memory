@@ -39,9 +39,7 @@ class FuzzyAssociativeMemory::Ruleset
       # µ. A popular way of doing so is to OR the values together, i.e. keep the
       # maximum µ value and discard the others.
       curr_best = @consequent_mus[cons]
-      if curr_best.nil? || mu > curr_best
-        @consequent_mus[cons] = mu
-      end
+      @consequent_mus[cons] = mu if curr_best.nil? || mu > curr_best
     end
 
     # Using each µ value, alter the consequent fuzzy set's polgyon. This is
@@ -60,6 +58,7 @@ class FuzzyAssociativeMemory::Ruleset
       else
         raise RuntimeError, "I must have been passed an unknown implication mechanism: #{@implication}"
       end
+
       # Defuzzify into a discrete & usable value by adding up the weighted
       # consequents' contributions to the output. Again there are several ways
       # of doing it, such as computing the centroid of the combined 'mass', or
@@ -74,6 +73,6 @@ class FuzzyAssociativeMemory::Ruleset
     @consequent_mus.clear
 
     return numerator/denominator
-
   end
+
 end
