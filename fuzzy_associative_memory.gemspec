@@ -8,8 +8,7 @@ Gem::Specification.new do |s|
   EOF
   s.authors     = ["Chris Powell"]
   s.email       = 'cpowell@prylis.com'
-  s.files       = Dir['lib/**/*.rb'] + Dir['bin/*']
-  s.files       += Dir['[A-Z]*'] + Dir['test/**/*']
+  s.files       = `git ls-files`.split($/)
   s.homepage    = 'http://github.com/cpowell/fuzzy-associative-memory'
   s.license     = 'LGPL'
   s.rdoc_options = ["--main", "README.md"]
