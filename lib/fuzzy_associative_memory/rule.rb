@@ -37,7 +37,7 @@ class FuzzyAssociativeMemory::Rule
     @antecedents      = antecedent_array
     @consequent       = consequent
     @boolean          = boolean
-    @mus = Array.new
+    @mus = Array.new(@antecedents.length)
   end
 
   # Triggers the rule. The antecedent(s) is/are fired with the supplied inputs
@@ -53,16 +53,14 @@ class FuzzyAssociativeMemory::Rule
     # raise ArgumentError, "value array must be an collection of inputs but is a #{value_array.class}" unless value_array.is_a? Enumerable
     # raise ArgumentError, "value array passed to Rule::fire() cannot be empty" if value_array.empty?
 
-    @mus.clear
-
     for i in 0..@antecedents.size-1
-      @mus << @antecedents[i].mu(value_array[i])
+      @mus[i] = @antecedents[i].mu(value_array[i])
     end
 
     if @boolean==:and
-      return [@consequent, @mus.min] # AND / Intersection == minimum
+      return @mus.min # AND / Intersection == minimum
     else
-      return [@consequent, @mus.max] # OR / Union == maximum
+      return @mus.max # OR / Union == maximum
     end
 
     # puts "Fired rule '#{@natural_language}': µ choices are [#{@mus.join(',')}], final µ is #{mu}" if $verbosity

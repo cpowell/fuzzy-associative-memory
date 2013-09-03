@@ -31,7 +31,8 @@ class FuzzyAssociativeMemory::Ruleset
       # Gather the µ vals by consequent, since each consequent may in fact
       # have been fired more than once and we'll need that knowledge in a
       # moment...
-      cons, mu = rule.fire(input_values)
+      mu = rule.fire(input_values)
+      cons = rule.consequent
 
       # Since any given consequent may have been activated more than once, we
       # need to get just a single µ value out -- we only care about the 'best'
@@ -59,7 +60,6 @@ class FuzzyAssociativeMemory::Ruleset
       else
         raise RuntimeError, "I must have been passed an unknown implication mechanism: #{@implication}"
       end
-
       # Defuzzify into a discrete & usable value by adding up the weighted
       # consequents' contributions to the output. Again there are several ways
       # of doing it, such as computing the centroid of the combined 'mass', or
