@@ -30,11 +30,11 @@ $verbosity = false
 temperature_in = FuzzyAssociativeMemory::LinguisticVariable.new("room temperature") # degrees fahrenheit
 
 # Wider: less important, coarse control; narrower: more important, fine control
-cold       = FuzzyAssociativeMemory::Trapezoid.new(40, 40, 40, 50)  # 20 deg wide
-cool       = FuzzyAssociativeMemory::Triangle.new(45, 55, 65)  # 20 deg wide
-just_right = FuzzyAssociativeMemory::Triangle.new(60, 65, 70)  # 10 deg wide
-warm       = FuzzyAssociativeMemory::Triangle.new(65, 75, 85)  # 20 deg wide
-hot        = FuzzyAssociativeMemory::Trapezoid.new(80, 90, 90, 90) # 20 deg wide
+cold       = FuzzyAssociativeMemory::Trapezoid.new(40, 40, 40, 50)
+cool       = FuzzyAssociativeMemory::Triangle.new(45, 55, 65)
+just_right = FuzzyAssociativeMemory::Triangle.new(60, 65, 70)
+warm       = FuzzyAssociativeMemory::Triangle.new(65, 75, 85)
+hot        = FuzzyAssociativeMemory::Trapezoid.new(80, 90, 90, 90)
 
 temperature_in.sets = [cold, cool, just_right, warm, hot]
 # Comment out if you don't have Gnuplot installed:
@@ -45,11 +45,11 @@ temperature_in.gnuplot({:logarithmic_x=>false})
 # fan speed' variable, is the  assemblage of all our fuzzy output sets.
 fan_speed = FuzzyAssociativeMemory::LinguisticVariable.new("fan speed") # cubic feet per minute (CFM)
 
-stop   = FuzzyAssociativeMemory::Triangle.new(-30, 0, 30)   # 60 CFM wide
-slow   = FuzzyAssociativeMemory::Triangle.new(10, 30, 50)   # 40 CFM wide
-medium = FuzzyAssociativeMemory::Triangle.new(40, 50, 60)   # 20 CFM wide
-fast   = FuzzyAssociativeMemory::Triangle.new(50, 70, 90)   # 40 CFM wide
-blast  = FuzzyAssociativeMemory::Triangle.new(70, 100, 130) # 60 CFM wide
+stop   = FuzzyAssociativeMemory::Triangle.new(-30, 0, 30)
+slow   = FuzzyAssociativeMemory::Triangle.new(10, 30, 50)
+medium = FuzzyAssociativeMemory::Triangle.new(40, 50, 60)
+fast   = FuzzyAssociativeMemory::Triangle.new(50, 70, 90)
+blast  = FuzzyAssociativeMemory::Triangle.new(70, 100, 130)
 
 fan_speed.sets = [stop, slow, medium, fast, blast]
 # Comment out if you don't have Gnuplot installed:
