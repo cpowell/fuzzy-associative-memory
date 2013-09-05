@@ -80,7 +80,7 @@ class FuzzyAssociativeMemory::LinguisticVariable
       )
 
       if opts[:logarithmic_x]
-        commands += "set xr [[#{[min, 1].max}:#{max}]\nset logscale x\n"
+        commands += "set xr [#{[min, 1].max}:#{max}]\nset logscale x\n"
       else
         commands += "set xr [#{min}:#{max}]\n"
       end
