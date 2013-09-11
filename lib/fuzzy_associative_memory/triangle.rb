@@ -44,12 +44,10 @@ class FuzzyAssociativeMemory::Triangle < FuzzyAssociativeMemory::FuzzySet
   end
 
   def mamdani(clip_height)
-    left      = @left
     top_left  = @left + (clip_height * (@center - @left))
     top_right = @right - (clip_height * (@right - @center))
-    right     = @right
 
-    FuzzyAssociativeMemory::Trapezoid.new(left, top_left, top_right, right, clip_height)
+    FuzzyAssociativeMemory::Trapezoid.new(@left, top_left, top_right, @right, clip_height)
   end
 
   def to_s
