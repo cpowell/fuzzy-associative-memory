@@ -51,10 +51,10 @@ class FuzzyAssociativeMemory::Ruleset
 
     @consequent_mus.each do |cons, mu|
       case @implication
-      when :mamdani
-        tmp = cons.mamdani(mu)
       when :larsen
         tmp = cons.larsen(mu)
+      when :mamdani
+        tmp = cons.mamdani(mu)
       else
         raise RuntimeError, "I must have been passed an unknown implication mechanism: #{@implication}"
       end
@@ -70,7 +70,7 @@ class FuzzyAssociativeMemory::Ruleset
       denominator += tmp.height
     end
 
-    @consequent_mus.clear
+    @consequent_mus={}
 
     return numerator/denominator
   end
