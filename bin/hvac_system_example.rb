@@ -1,4 +1,5 @@
-#!/usr/bin/env ruby --server -Xcompile.invokedynamic=true
+#!/usr/bin/env ruby --server
+#-Xcompile.invokedynamic=true
 #
 # The shebang line, above, should reflect your Ruby.
 # - Vanilla ruby 1.9/2.0 : #!/usr/bin/env ruby
